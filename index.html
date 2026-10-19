@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1B2A4E">
+  <meta name="description" content="The Kōhai ad design system: foundations, eleven creative formats, copy, and production guidance for Meta, Instagram, and TikTok.">
+  <title>Kōhai — Ad design system</title>
+  <link rel="icon" href="kohai/assets/logo/icon.png">
+  <link rel="stylesheet" href="kohai/styles.css">
+  <style>
+    :root {
+      --page-max: 1320px;
+      --page-gutter: clamp(22px, 4vw, 64px);
+      --serif: "Shippori Mincho", Georgia, serif;
+      --sans: "Zen Kaku Gothic New", sans-serif;
+      --ink: var(--kohai-kon, #1B2A4E);
+      --blue: var(--kohai-ai-indigo, #1F4E8C);
+      --silk: var(--kohai-shironeri, #F5F0E8);
+      --paper: var(--surface-card, #FBF8F2);
+      --sky: var(--kohai-sky-on-dark, #9DB4EC);
+      --line: var(--border-line, rgba(27,42,78,.17));
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+    body { margin: 0; background: var(--silk); color: var(--kohai-sumi, #2C2C2C); font-family: var(--sans); font-weight: 400; line-height: 1.65; }
+    h1, h2, h3, h4, p, figure { margin: 0; }
+    h1, h2, h3 { color: var(--ink); font-family: var(--serif); font-weight: 600; }
+    a { color: var(--blue); text-underline-offset: 4px; }
+    a:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px solid var(--blue); outline-offset: 6px; }
+    button, input { font: inherit; }
+    img { max-width: 100%; }
+    ::selection { background: #9DB4EC66; color: var(--ink); }
+    .svg-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+    .wrap { width: min(var(--page-max), calc(100% - var(--page-gutter) * 2)); margin-inline: auto; }
+    .eyebrow { font: 700 11px/1.5 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--blue); }
+    .muted { color: #626775; }
+    .small { font-size: 13px; }
+    .brand { display: inline-flex; align-items: center; gap: .45em; color: var(--ink); font: 500 28px/1.1 var(--serif); white-space: nowrap; text-decoration: none; }
+    .brand svg { width: 1em; height: 1em; flex: none; }
+    .brand--light { color: var(--silk); }
+    .brand--small { font-size: 24px; }
+    .ph { text-decoration-line: underline; text-decoration-style: dotted; text-decoration-color: currentColor; text-decoration-thickness: 1px; text-underline-offset: .19em; }
+    .tag { display: inline-block; border: 1px solid var(--line); border-radius: 3px; padding: 3px 9px; color: var(--ink); font: 500 11px/1.5 var(--sans); }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 25px; padding: 13px 21px; border: 0; border-radius: 6px; background: var(--blue); color: var(--silk); font: 700 14px/1.4 var(--sans); text-decoration: none; }
+    .button:hover { box-shadow: 0 0 0 3px #9DB4EC55; }
+    .kamon { display: inline-block; flex: none; background: currentColor; -webkit-mask-image: var(--crest); mask-image: var(--crest); -webkit-mask-size: contain; mask-size: contain; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; width: 44px; height: 44px; color: var(--blue); }
+    .k-seigaiha { --crest: url("kohai/assets/icons/kamon-seigaiha.svg"); }
+    .k-sakura { --crest: url("kohai/assets/icons/kamon-sakura.svg"); }
+    .k-asanoha { --crest: url("kohai/assets/icons/kamon-asanoha.svg"); }
+    .k-kikyo { --crest: url("kohai/assets/icons/kamon-kikyo.svg"); }
+    .k-matsu { --crest: url("kohai/assets/icons/kamon-matsu.svg"); }
+    .k-igeta { --crest: url("kohai/assets/icons/kamon-igeta.svg"); }
+    .k-ogi { --crest: url("kohai/assets/icons/kamon-ogi.svg"); }
+    .k-kikko { --crest: url("kohai/assets/icons/kamon-kikko.svg"); }
+    .pattern { position: absolute; inset: 0; color: var(--blue); pointer-events: none; }
+    .ambient-4 { opacity: .04; }
+    .wave-rule { position: relative; height: 15px; width: 100%; color: var(--blue); opacity: .6; pointer-events: none; }
+    .section-wave { margin-top: 76px; }
+    .stage-band { position: absolute; inset: auto 0 0; height: 36px; color: var(--sky); opacity: .85; z-index: 4; pointer-events: none; }
+    .stage-band--top { inset: 0 0 auto; transform: rotate(180deg); }
+    .site-header { background: var(--silk); }
+    .topbar { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding-block: 24px; }
+    .topbar-note { display: flex; align-items: center; gap: 22px; font-size: 12px; color: #626775; }
+    .edition { border-left: 1px solid var(--line); padding-left: 22px; }
+    .hero { position: relative; overflow: hidden; background: var(--surface-stage, radial-gradient(ellipse at 70% 15%, #24446E, #1B2A4E 75%)); color: var(--silk); }
+    .hero .eyebrow { color: var(--sky); }
+    .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 64px; align-items: center; padding-block: 82px 90px; min-height: 590px; }
+    .hero-copy { position: relative; z-index: 2; }
+    .hero h1 { color: var(--silk); font-size: clamp(48px, 5.8vw, 78px); letter-spacing: -.055em; line-height: 1.1; margin: 22px 0 24px; }
+    .hero h1 span { color: var(--sky); }
+    .hero-lede { max-width: 490px; font-size: 18px; line-height: 1.7; color: #D6DDED; }
+    .hero-actions { display: flex; align-items: center; gap: 25px; margin-top: 32px; }
+    .hero-actions .small { color: var(--sky); }
+    .hero-version { color: var(--sky); font-size: 11px; margin-top: 30px; }
+    .hero-art { position: relative; min-height: 400px; display: flex; align-items: center; justify-content: center; }
+    .hero-crest { width: 590px; height: 590px; position: absolute; right: -185px; top: -100px; color: var(--sky); opacity: .09; }
+    .hero-sheet { position: relative; width: 340px; background: var(--silk); box-shadow: 15px 22px 60px #07132940; padding: 31px 32px 28px; transform: rotate(-4deg); color: var(--ink); }
+    .hero-sheet .eyebrow { color: var(--blue); font-size: 9px; }
+    .hero-sheet h2 { position: relative; font-size: 39px; line-height: 1.17; letter-spacing: -.04em; margin: 35px 0 30px; }
+    .hero-sheet h2 span { color: var(--blue); }
+    .hero-sheet-foot { display: flex; justify-content: space-between; align-items: end; border-top: 1px solid var(--line); padding-top: 20px; }
+    .hero-sheet-foot .brand { font-size: 23px; }
+    .hero-sheet-foot > span { font-size: 9px; }
+    .hero-note { position: absolute; right: -10px; bottom: -3px; width: 230px; padding: 18px 22px; background: var(--paper); box-shadow: var(--shadow-plaque, 0 8px 24px #07132930); transform: rotate(4deg); color: var(--ink); border-top: 3px solid var(--kohai-kin, #C2A24B); }
+    .hero-note strong { display: block; font: 600 22px/1.3 var(--serif); }
+    .hero-note span { display: block; font-size: 11px; margin-top: 8px; }
+    .hero-art-label { position: absolute; left: 8px; bottom: -40px; color: var(--sky); font-size: 10px; letter-spacing: .04em; }
+    .site-nav { position: sticky; top: 0; z-index: 50; background: #F5F0E8F5; border-bottom: 1px solid var(--line); backdrop-filter: blur(12px); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 30px; min-height: 62px; }
+    .nav-links { display: flex; gap: 30px; overflow-x: auto; scrollbar-width: thin; padding-block: 18px; }
+    .nav-links a { text-decoration: none; white-space: nowrap; font-size: 12px; font-weight: 700; }
+    .nav-links a span { opacity: .55; font-weight: 400; margin-right: 7px; }
+    .nav-links a:hover { text-decoration: underline; }
+    .nav-end { white-space: nowrap; font-size: 10px; color: #626775; }
+    .section { padding-top: 76px; }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 40px; margin-bottom: 38px; }
+    .section-heading h2 { font-size: clamp(32px, 3.5vw, 45px); line-height: 1.2; letter-spacing: -.035em; margin-top: 11px; }
+    .section-heading > p { max-width: 410px; font-size: 14px; color: #626775; }
+    .foundation-grid { display: grid; grid-template-columns: 1.05fr .95fr; border: 1px solid var(--line); background: var(--paper); }
+    .foundation-panel { padding: 30px; min-width: 0; }
+    .foundation-panel + .foundation-panel { border-left: 1px solid var(--line); }
+    .panel-heading { display: flex; align-items: baseline; gap: 10px; justify-content: space-between; margin-bottom: 22px; }
+    .panel-heading h3 { font-size: 22px; line-height: 1.3; }
+    .panel-heading > span { font-size: 11px; color: #626775; }
+    .canvas-previews { display: grid; grid-template-columns: 4fr 4fr 3fr; gap: 18px; align-items: start; }
+    .canvas-previews figcaption { margin-top: 12px; font-size: 11px; }
+    .canvas-previews figcaption strong { display: block; color: var(--ink); font-size: 12px; font-weight: 700; }
+    .canvas-previews .ad-wrap { border: 1px solid var(--line); }
+    .guide-ad { background: var(--silk); display: flex; align-items: center; justify-content: center; }
+    .guide-center { text-align: center; color: var(--ink); }
+    .guide-center b { display: block; font: 600 160px/1.1 var(--serif); }
+    .guide-center span { display: block; margin-top: 35px; font: 500 65px/1.4 var(--sans); }
+    .safe-outline { position: absolute; inset: 60px; border: 6px dashed #1F4E8C70; z-index: 8; pointer-events: none; }
+    .safe-story { top: 250px; bottom: 340px; }
+    .danger { position: absolute; left: 0; right: 0; background: repeating-linear-gradient(-45deg, #1B2A4E07, #1B2A4E07 16px, #1B2A4E12 16px, #1B2A4E12 20px); color: var(--blue); display: grid; place-items: center; font: 700 68px/1.1 var(--sans); }
+    .danger--top { top: 0; height: 250px; border-bottom: 5px dashed #1F4E8C70; }
+    .danger--bottom { bottom: 0; height: 340px; border-top: 5px dashed #1F4E8C70; }
+    .margin-label { position: absolute; bottom: 85px; left: 100px; font: 500 64px/1.2 var(--sans); color: var(--blue); }
+    .foundation-note { margin-top: 24px; font-size: 12px; color: #626775; }
+    .type-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .type-table td { padding: 12px 0; border-bottom: 1px solid var(--line); vertical-align: middle; }
+    .type-table td:last-child { text-align: right; color: #626775; font-size: 11px; }
+    .type-sample-display { font: 600 29px/1.1 var(--serif); color: var(--ink); }
+    .type-sample-head { font: 600 23px/1.2 var(--serif); color: var(--ink); }
+    .type-sample-sub { font-size: 17px; font-weight: 500; }
+    .type-sample-body { font-size: 15px; }
+    .type-sample-cta { color: var(--blue); font-weight: 700; }
+    .twist-rule { display: grid; grid-template-columns: 1fr 1fr 1fr; margin-top: 24px; border: 1px solid var(--line); }
+    .twist-explainer, .twist-example { padding: 28px 30px; }
+    .twist-explainer { background: var(--paper); }
+    .twist-explainer h3 { font-size: 22px; margin-bottom: 8px; }
+    .twist-explainer p { font-size: 12px; }
+    .twist-example { position: relative; display: flex; flex-direction: column; justify-content: center; }
+    .twist-example p { font: 600 28px/1.3 var(--serif); letter-spacing: -.03em; color: var(--ink); }
+    .twist-example p span { color: var(--blue); }
+    .twist-example small { font-size: 10px; color: #626775; margin-top: 16px; }
+    .twist-example--dark { background: var(--surface-stage, #1B2A4E); }
+    .twist-example--dark p { color: var(--silk); }
+    .twist-example--dark p span, .twist-example--dark small { color: var(--sky); }
+    .twist-example--dark .stage-band { height: 14px; }
+    .subsection-heading { margin-top: 42px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: baseline; gap: 20px; }
+    .subsection-heading h3 { font-size: 25px; }
+    .subsection-heading > p { font-size: 12px; color: #626775; }
+    .surface-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .surface-demo { position: relative; height: 200px; padding: 27px; overflow: hidden; background: var(--silk); border: 1px solid var(--line); display: flex; flex-direction: column; justify-content: space-between; }
+    .surface-demo h4 { position: relative; font: 600 31px/1.2 var(--serif); color: var(--ink); }
+    .surface-demo .eyebrow { position: relative; font-size: 9px; }
+    .surface-demo.stage { background: var(--surface-stage, #1B2A4E); }
+    .surface-demo.stage h4 { color: var(--silk); }
+    .surface-demo.stage .eyebrow { color: var(--sky); }
+    .surface-demo .poster { width: 260px; height: 260px; right: -60px; top: -40px; }
+    .surface-demo .stage-band { height: 20px; }
+    .surface-demo.plaque-demo { display: grid; place-items: center; padding: 20px; }
+    .surface-demo .certificate { width: 100%; height: 100%; display: grid; place-items: center; --notch: 11px; }
+    .surface-demo .certificate h4 { font-size: 25px; }
+    .surface-caption { margin-top: 12px; font-size: 12px; color: #626775; }
+    .surface-caption strong { color: var(--ink); }
+    .token-strip { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 24px; padding-block: 18px; border-block: 1px solid var(--line); }
+    .token { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; }
+    .token i { height: 12px; width: 12px; display: inline-block; background: var(--swatch); border: 1px solid #1B2A4E18; }
+    .utility-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 24px; margin-top: 24px; }
+    .utility-card { border: 1px solid var(--line); padding: 27px 30px; background: var(--paper); }
+    .utility-card h3 { font-size: 22px; margin-bottom: 15px; }
+    .utility-card p { font-size: 12px; }
+    .cta-samples { display: flex; align-items: center; gap: 25px; margin: 20px 0; flex-wrap: wrap; }
+    .text-cta { color: var(--blue); font-weight: 700; }
+    .seal { width: 88px; height: 88px; border: 2px solid var(--blue); outline: 1px solid var(--blue); outline-offset: -7px; border-radius: 50%; color: var(--blue); display: flex; align-items: center; justify-content: center; text-align: center; font: 700 11px/1.3 var(--sans); transform: rotate(-8deg); }
+    .logo-rule { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding-bottom: 19px; margin-bottom: 15px; border-bottom: 1px solid var(--line); }
+    .logo-rule .brand { font-size: 39px; }
+    .logo-rule > span { color: #626775; font-size: 11px; }
+    .motif-grid { display: grid; grid-template-columns: repeat(8, 1fr); border: 1px solid var(--line); }
+    .motif { text-align: center; padding: 22px 8px 18px; }
+    .motif + .motif { border-left: 1px solid var(--line); }
+    .motif .kamon { width: 39px; height: 39px; margin-bottom: 9px; }
+    .motif strong { display: block; font: 700 12px/1.4 var(--sans); color: var(--ink); }
+    .motif p { font-size: 10px; line-height: 1.5; color: #626775; margin-top: 5px; }
+    .photo-rule { margin-top: 25px; display: grid; grid-template-columns: 160px 1fr; gap: 24px; align-items: center; padding: 20px; border: 1px solid var(--line); }
+    .photo-swatch { height: 110px; background: linear-gradient(0deg, #1B2A4EF5, #1B2A4E05 80%), linear-gradient(125deg, #F5F0E8 0, #7485A2 37%, #294B76 70%, #1B2A4E 100%); position: relative; overflow: hidden; }
+    .photo-swatch .stage-band { height: 16px; }
+    .photo-swatch span { position: absolute; left: 13px; bottom: 24px; color: var(--silk); font-size: 10px; }
+    .photo-rule h4 { font: 700 13px/1.4 var(--sans); color: var(--ink); margin-bottom: 6px; }
+    .photo-rule p { font-size: 12px; color: #626775; }
+    .library-intro { display: flex; justify-content: space-between; gap: 25px; padding: 18px 22px; border: 1px solid var(--line); background: var(--paper); font-size: 12px; }
+    .library-intro p { max-width: 660px; }
+    .library-intro .legend { max-width: 345px; }
+    .format-index { display: flex; flex-wrap: wrap; gap: 8px; padding: 22px 0 8px; }
+    .format-index a { text-decoration: none; font-size: 11px; padding: 6px 11px; border: 1px solid var(--line); border-radius: 3px; }
+    .format-index a:hover { background: var(--paper); border-color: var(--blue); }
+    .format { padding-block: 52px; border-bottom: 1px solid var(--line); scroll-margin-top: 85px; }
+    .format:last-of-type { border-bottom: 0; padding-bottom: 0; }
+    .format-title { display: flex; gap: 20px; align-items: start; margin-bottom: 28px; }
+    .format-number { min-width: 46px; padding-top: 7px; font: 500 14px/1.4 var(--sans); color: var(--blue); }
+    .format-title h3 { font-size: 29px; line-height: 1.25; letter-spacing: -.025em; }
+    .format-title p { color: #626775; font-size: 12px; margin-top: 7px; }
+    .format-title .tag { margin-left: auto; margin-top: 5px; white-space: nowrap; }
+    .format-grid { display: grid; grid-template-columns: minmax(300px, .92fr) minmax(0, 1.08fr); gap: 48px; align-items: start; }
+    .media-well { padding: 28px; background: #EAE5DD; border: 1px solid #1B2A4E0C; min-width: 0; }
+    .media-well > .ad-wrap { max-width: 440px; margin-inline: auto; }
+    .media-well--story > .ad-wrap { max-width: 345px; }
+    .media-caption { display: flex; justify-content: space-between; gap: 15px; margin-top: 14px; font-size: 10px; color: #626775; }
+    .spec { min-width: 0; }
+    .spec-block { padding-bottom: 17px; margin-bottom: 17px; border-bottom: 1px solid var(--line); }
+    .spec h4 { font: 700 10px/1.5 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--blue); margin-bottom: 7px; }
+    .spec p, .spec li, .spec dd, .spec dt { font-size: 13px; line-height: 1.65; }
+    .spec .source-name { font-weight: 700; color: var(--ink); }
+    .when { display: flex; gap: 9px; align-items: baseline; margin-top: 10px; }
+    .when strong { color: var(--ink); font-size: 12px; white-space: nowrap; }
+    .anatomy { list-style: none; padding: 0; margin: 0; counter-reset: anatomy; }
+    .anatomy li { position: relative; padding-left: 28px; margin: 6px 0; counter-increment: anatomy; }
+    .anatomy li::before { content: counter(anatomy); position: absolute; top: 2px; left: 0; width: 18px; height: 18px; display: grid; place-items: center; border: 1px solid #1F4E8C55; border-radius: 50%; color: var(--blue); font: 700 10px/1 var(--sans); }
+    .slots { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; margin: 0; }
+    .slots dt { color: #626775; }
+    .slots dd { margin: 0; font-weight: 700; color: var(--ink); white-space: nowrap; }
+    .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .do-dont p { font-size: 12px; }
+    .do-dont strong { display: block; color: var(--blue); margin-bottom: 3px; }
+    .do-dont .dont strong { color: var(--ink); }
+    .spec-footnote { margin-top: 14px; font-size: 11px !important; color: #626775; }
+    .format-wide .spec { margin-top: 26px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 27px; }
+    .format-wide .spec-block { margin: 0 0 16px; }
+    .format-wide .spec-col { min-width: 0; }
+    .ab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; max-width: 930px; margin-inline: auto; }
+    .variant-label { display: flex; justify-content: space-between; font-size: 10px; color: #626775; margin-bottom: 10px; }
+    .variant-label strong { color: var(--blue); font-weight: 700; }
+    .rail { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(250px, 1fr); gap: 18px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: thin; scrollbar-color: #1F4E8C60 transparent; }
+    .rail > figure { min-width: 0; }
+    .rail-caption { display: flex; justify-content: space-between; font-size: 11px; color: #626775; margin-top: 11px; gap: 12px; }
+    .rail-caption strong { color: var(--ink); }
+    .dco-grid { display: grid; grid-template-columns: 1fr 1fr .74fr; gap: 24px; align-items: center; }
+    .dco-grid figure { min-width: 0; }
+    .dco-grid figcaption { font-size: 11px; color: #626775; margin-top: 12px; display: flex; justify-content: space-between; }
+    .dco-grid figcaption strong { color: var(--ink); }
+    /* Each preview contains a real, 1080 px-wide artboard. ResizeObserver
+       sets --s from its measured wrapper width; no ad typography uses vw. */
+    .ad-wrap { position: relative; width: 100%; aspect-ratio: var(--ratio); overflow: hidden; background: var(--silk); box-shadow: 0 4px 14px #1B2A4E09; --s: .3; }
+    .ratio-feed { --ratio: 4 / 5; --ad-h: 1350px; }
+    .ratio-square { --ratio: 1 / 1; --ad-h: 1080px; }
+    .ratio-story { --ratio: 9 / 16; --ad-h: 1920px; }
+    .ad { position: absolute; left: 0; top: 0; width: 1080px; height: var(--ad-h); transform: scale(var(--s)); transform-origin: top left; overflow: hidden; background: var(--silk); color: var(--ink); font: 400 32px/1.45 var(--sans); }
+    .ad h4, .ad h5 { margin: 0; font-family: var(--serif); font-weight: 600; letter-spacing: -.04em; line-height: 1.08; }
+    .ad h4 { font-size: 90px; }
+    .ad h5 { font-size: 70px; }
+    .ad p { margin: 0; }
+    .ad .ad-eyebrow { font: 700 24px/1.5 var(--sans); text-transform: uppercase; letter-spacing: .14em; color: var(--blue); }
+    .ad .ad-body { font: 400 32px/1.45 var(--sans); }
+    .ad .ad-sub { font: 500 38px/1.35 var(--sans); }
+    .ad .ad-twist { color: var(--blue); }
+    .ad .brand { font-size: 54px; line-height: 1; height: 54px; }
+    .ad .ad-brand { position: absolute; left: 72px; bottom: 72px; z-index: 5; }
+    .ad .ad-button { display: inline-flex; align-items: center; justify-content: center; gap: 50px; background: var(--blue); color: var(--silk); border-radius: 6px; padding: 27px 43px; font: 700 30px/1.4 var(--sans); }
+    .ad .ad-link { color: var(--blue); font: 700 30px/1.4 var(--sans); }
+    .ad-stage { background: var(--surface-stage, radial-gradient(ellipse at 80% 15%, #25446C, #1B2A4E 75%)); color: var(--silk); }
+    .ad-stage .ad-eyebrow, .ad-stage .ad-twist { color: var(--sky); }
+    .ad-stage .brand { color: var(--silk); }
+    .ad-stage .ad-body { color: var(--sky); }
+    .poster { position: absolute; width: 840px; height: 840px; right: -215px; top: 40px; color: var(--sky); opacity: .09; pointer-events: none; }
+    .ad .pin { position: absolute; width: 40px; height: 40px; display: grid; place-items: center; border: 2px solid var(--silk); border-radius: 50%; background: var(--blue); color: var(--silk); font: 700 23px/1 var(--sans); z-index: 20; box-shadow: 0 0 0 1px #1F4E8C70; }
+    .ad .ph { text-decoration-thickness: 2px; text-underline-offset: .16em; }
+    .certificate { position: relative; background-color: var(--paper); color: var(--ink); --notch: 16px; --frame: #1F4E8C80; -webkit-mask-image: radial-gradient(circle var(--notch) at 0 0, transparent 98%, #000), radial-gradient(circle var(--notch) at 100% 0, transparent 98%, #000), radial-gradient(circle var(--notch) at 100% 100%, transparent 98%, #000), radial-gradient(circle var(--notch) at 0 100%, transparent 98%, #000); mask-image: radial-gradient(circle var(--notch) at 0 0, transparent 98%, #000), radial-gradient(circle var(--notch) at 100% 0, transparent 98%, #000), radial-gradient(circle var(--notch) at 100% 100%, transparent 98%, #000), radial-gradient(circle var(--notch) at 0 100%, transparent 98%, #000); -webkit-mask-composite: source-in; mask-composite: intersect; }
+    .certificate::before, .certificate::after {
+      content: ""; position: absolute; inset: 12px; pointer-events: none; --n: 20px;
+      background:
+        radial-gradient(circle at 0 0, transparent calc(var(--n) - 1px), var(--frame) var(--n), transparent calc(var(--n) + 1px)) top left / var(--n) var(--n) no-repeat,
+        radial-gradient(circle at 100% 0, transparent calc(var(--n) - 1px), var(--frame) var(--n), transparent calc(var(--n) + 1px)) top right / var(--n) var(--n) no-repeat,
+        radial-gradient(circle at 100% 100%, transparent calc(var(--n) - 1px), var(--frame) var(--n), transparent calc(var(--n) + 1px)) bottom right / var(--n) var(--n) no-repeat,
+        radial-gradient(circle at 0 100%, transparent calc(var(--n) - 1px), var(--frame) var(--n), transparent calc(var(--n) + 1px)) bottom left / var(--n) var(--n) no-repeat,
+        linear-gradient(var(--frame), var(--frame)) top center / calc(100% - var(--n) * 2) 1px no-repeat,
+        linear-gradient(var(--frame), var(--frame)) bottom center / calc(100% - var(--n) * 2) 1px no-repeat,
+        linear-gradient(var(--frame), var(--frame)) center left / 1px calc(100% - var(--n) * 2) no-repeat,
+        linear-gradient(var(--frame), var(--frame)) center right / 1px calc(100% - var(--n) * 2) no-repeat;
+    }
+    .certificate::after { inset: 20px; --n: 12px; }
+    .gold-strip { height: 7px; background: var(--ichimonji, linear-gradient(90deg, #C2A24B70, #C2A24B, #C2A24B70)); }
+    .quote-ad .quote-copy { position: absolute; top: 228px; left: 82px; right: 82px; }
+    .quote-ad h4 { font-size: 96px; line-height: 1.12; }
+    .quote-ad .ad-eyebrow { position: absolute; top: 100px; left: 82px; }
+    .quote-ad .ad-link { position: absolute; left: 82px; bottom: 270px; }
+    .quote-ad .quote-line { position: absolute; left: 82px; right: 82px; bottom: 190px; border-top: 1px solid #1B2A4E35; }
+    .scene-ad .scene-head { position: absolute; top: 110px; left: 72px; right: 72px; }
+    .scene-ad .scene-head h4 { font-size: 64px; white-space: nowrap; }
+    .scene-ad .scene-head p { margin-top: 25px; color: var(--sky); font-size: 36px; }
+    .employee-plaque { position: absolute; left: 170px; top: 380px; width: 650px; height: 640px; border: 2px solid #9DB4EC65; border-radius: 6px; overflow: hidden; box-shadow: 0 26px 70px #08112640; }
+    .employee-plaque::before { content: ""; position: absolute; inset: 20px; border: 1px solid #9DB4EC30; pointer-events: none; }
+    .employee-plaque .poster { width: 580px; height: 580px; right: -145px; top: -95px; }
+    .employee-plaque .employee-top { position: absolute; left: 52px; top: 48px; }
+    .employee-plaque .employee-name { position: absolute; bottom: 110px; left: 52px; font: 600 82px/1.2 var(--serif); }
+    .employee-plaque .employee-role { position: absolute; bottom: 59px; left: 55px; color: var(--sky); font: 500 30px/1.2 var(--sans); }
+    .employee-plaque .drawing { position: absolute; top: 160px; left: 60px; width: 285px; height: 190px; border: 2px solid #9DB4EC70; transform: rotate(-7deg); }
+    .employee-plaque .drawing::before { content: ""; position: absolute; inset: 28px; border: 2px solid #9DB4EC70; background: linear-gradient(90deg, transparent 52%, #9DB4EC70 52%, #9DB4EC70 53%, transparent 53%), linear-gradient(0deg, transparent 50%, #9DB4EC70 50%, #9DB4EC70 51%, transparent 51%); }
+    .notification { padding: 28px 32px; background: var(--paper); color: var(--ink); border: 1px solid #1F4E8C25; border-radius: 6px; box-shadow: 0 16px 40px #07132920; font: 500 30px/1.4 var(--sans); }
+    .notification strong { font-weight: 700; }
+    .notification .status-line { display: block; color: #626775; font-size: 24px; margin-top: 7px; }
+    .scene-ad .notification { position: absolute; top: 915px; left: 280px; width: 718px; }
+    .scene-ad .notification::before { content: ""; display: inline-block; width: 12px; height: 12px; background: var(--kohai-matcha, #7A9033); border-radius: 50%; margin-right: 14px; vertical-align: 3px; }
+    .offer-ad .offer-copy { position: absolute; top: 125px; left: 80px; right: 80px; }
+    .offer-ad h4 { font-size: 94px; }
+    .offer-ad .offer-copy .ad-body { margin-top: 30px; max-width: 790px; }
+    .offer-ad .ad-button { margin-top: 35px; }
+    .offer-plaque { position: absolute; left: 80px; right: 80px; bottom: 245px; height: 300px; padding: 60px 58px; --notch: 24px; }
+    .offer-plaque .gold-strip { position: absolute; top: 31px; left: 44px; right: 44px; height: 5px; }
+    .offer-plaque .price { font: 600 90px/1 var(--serif); margin-top: 23px; }
+    .offer-plaque .price span { font: 500 34px/1 var(--sans); }
+    .offer-plaque .plaque-note { position: absolute; right: 65px; top: 125px; max-width: 330px; font-size: 30px; }
+    .offer-ad .proof-line { position: absolute; left: 80px; bottom: 179px; font: 400 26px/1.4 var(--sans); color: var(--sky); }
+    .attention-ad .ad-eyebrow { position: absolute; top: 83px; left: 72px; }
+    .tool-row { position: absolute; top: 215px; left: 72px; right: 72px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; opacity: .48; }
+    .tool { height: 210px; background: var(--paper); border: 1px solid #1B2A4E35; border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; font: 500 26px/1.2 var(--sans); color: var(--ink); }
+    .tool-icon { display: block; width: 60px; height: 49px; border: 2px solid currentColor; position: relative; }
+    .tool-icon::before { content: ""; position: absolute; left: 10px; right: 10px; top: 13px; height: 2px; background: currentColor; box-shadow: 0 10px 0 currentColor; }
+    .tool-icon.calendar::after { content: ""; position: absolute; top: -8px; left: 12px; width: 2px; height: 14px; background: currentColor; box-shadow: 30px 0 0 currentColor; }
+    .tool-icon.plans { transform: rotate(-7deg); }
+    .brief-card { position: absolute; top: 362px; left: 115px; right: 115px; padding: 55px 55px 65px; background: var(--paper); border: 1px solid #1F4E8C40; border-radius: 6px; box-shadow: 0 24px 65px #1B2A4E12; }
+    .brief-card .brief-label { font: 700 24px/1.4 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--blue); margin-bottom: 28px; }
+    .brief-card h4 { font-size: 64px; line-height: 1.12; }
+    .steps-ad .step-head { position: absolute; top: 280px; left: 85px; right: 85px; }
+    .steps-ad h4 { margin-top: 25px; font-size: 96px; }
+    .step-list { position: absolute; top: 565px; left: 85px; right: 85px; list-style: none; margin: 0; padding: 0; }
+    .step-list li { position: relative; display: grid; grid-template-columns: 64px 1fr; gap: 32px; font: 500 43px/1.25 var(--sans); min-height: 175px; }
+    .step-list li .kamon { width: 58px; height: 58px; }
+    .step-list li:not(:last-child)::after { content: "→"; position: absolute; top: 99px; left: 96px; font: 400 34px/1 var(--sans); color: var(--blue); }
+    .steps-ad .ad-button { position: absolute; top: 1340px; left: 85px; right: 85px; }
+    .steps-ad .ad-brand { bottom: 370px; left: 85px; }
+    .proof-ad .case-plaque { position: absolute; inset: 64px 64px 175px; padding: 70px; --notch: 28px; }
+    .case-plaque .gold-strip { position: absolute; top: 35px; left: 55px; right: 55px; }
+    .case-plaque .kamon { width: 105px; height: 105px; margin-bottom: 27px; }
+    .case-plaque .ad-eyebrow { margin-bottom: 28px; }
+    .case-plaque h4 { font-size: 72px; line-height: 1.15; }
+    .case-plaque .case-source { margin-top: 35px; font-size: 24px; color: #626775; }
+    .photo-ad { background: linear-gradient(0deg, #1B2A4EF5 0%, #1B2A4EAA 36%, #1B2A4E08 72%), linear-gradient(120deg, #F5F0E8 0%, #7485A2 30%, #34537A 57%, #1B2A4E 100%); color: var(--silk); }
+    .photo-grid { position: absolute; inset: 60px; border: 2px solid #F5F0E824; background: linear-gradient(90deg, transparent 49.9%, #F5F0E814 50%, transparent 50.1%), linear-gradient(0deg, transparent 49.9%, #F5F0E814 50%, transparent 50.1%); }
+    .photo-label { position: absolute; inset: 630px 100px auto; text-align: center; font: 500 30px/1.6 var(--sans); color: #F5F0E8B3; }
+    .photo-label::before, .photo-label::after { content: ""; display: block; width: 62px; height: 25px; border-left: 2px solid #F5F0E870; border-right: 2px solid #F5F0E870; margin: 25px auto; }
+    .photo-label::before { border-top: 2px solid #F5F0E870; }
+    .photo-label::after { border-bottom: 2px solid #F5F0E870; }
+    .photo-label small { display: block; font-size: 24px; margin-top: 8px; }
+    .ugc-ad .partner { position: absolute; top: 270px; left: 76px; font: 700 28px/1.4 var(--sans); }
+    .ugc-ad .partner small { display: block; font-size: 24px; font-weight: 400; color: #F5F0E8C9; margin-top: 8px; }
+    .ugc-ad .burned-caption { position: absolute; top: 1040px; left: 90px; right: 90px; text-align: center; }
+    .burned-caption span { display: inline-block; background: #1B2A4EB3; color: var(--silk); border-radius: 24px; padding: 16px 27px 20px; font: 700 48px/1.25 var(--sans); }
+    .ugc-ad .comment-card { position: absolute; top: 1285px; left: 72px; right: 72px; background: var(--silk); color: var(--ink); padding: 44px 44px 48px; border-radius: 6px; }
+    .comment-card p { font: 700 38px/1.3 var(--sans); }
+    .comment-card .stage-band { height: 24px; inset: -24px 0 auto; color: var(--sky); }
+    .ugc-ad .ad-brand { bottom: 370px; }
+    .photo-ad .brand { color: var(--silk); }
+    .doc-ad .photo-label { top: 340px; }
+    .doc-ad .doc-caption { position: absolute; left: 80px; right: 80px; bottom: 245px; }
+    .doc-ad .doc-caption h4 { font-size: 76px; max-width: 800px; }
+    .doc-ad .doc-caption .ad-eyebrow { color: var(--sky); margin-bottom: 28px; }
+    .doc-ad .doc-cut { position: absolute; left: 0; right: 0; bottom: 0; height: 165px; background: var(--silk); }
+    .doc-cut .stage-band { inset: -30px 0 auto; height: 30px; }
+    .doc-ad .ad-brand { color: var(--ink); bottom: 61px; }
+    .roster-ad .roster-index { position: absolute; top: 72px; left: 72px; right: 72px; display: flex; justify-content: space-between; font: 500 24px/1.3 var(--sans); color: var(--blue); }
+    .roster-ad .roster-crest { position: absolute; top: 200px; left: 74px; width: 155px; height: 155px; }
+    .roster-ad .roster-copy { position: absolute; left: 72px; right: 72px; top: 432px; }
+    .roster-ad .roster-copy h4 { font-size: 92px; }
+    .roster-ad .roster-copy p { font: 500 36px/1.4 var(--sans); margin-top: 27px; max-width: 800px; }
+    .roster-ad .roster-copy .role { font-size: 30px; color: var(--blue); margin-top: 18px; font-weight: 700; }
+    .roster-ad .roster-bottom { position: absolute; bottom: 176px; left: 72px; right: 72px; border-top: 1px solid #1B2A4E30; }
+    .roster-ad .swipe { position: absolute; right: 72px; bottom: 67px; font: 400 58px/1 var(--sans); color: var(--blue); }
+    .roster-ad .frame { position: absolute; inset: 35px; border: 1px solid #1F4E8C30; pointer-events: none; }
+    .dco-ad .module { position: absolute; border: 2px dashed #9DB4EC70; }
+    .slot-key { position: absolute; top: -20px; left: -2px; font: 700 24px/1.2 var(--sans); padding: 6px 13px; color: var(--silk); background: var(--blue); border-radius: 3px; z-index: 6; }
+    .dco-ad .mod-h { left: 72px; right: 72px; top: 100px; height: 260px; padding: 27px; }
+    .dco-ad .mod-h h4 { font-size: 82px; }
+    .dco-ad .mod-s { left: 72px; right: 72px; top: 390px; padding: 25px; min-height: 108px; }
+    .dco-ad .mod-s p { font: 400 32px/1.45 var(--sans); color: var(--sky); }
+    .dco-ad .mod-v { left: 72px; right: 72px; top: 535px; height: 400px; overflow: visible; }
+    .dco-ad .mod-v .poster { width: 400px; height: 400px; top: 0; right: -10px; }
+    .dco-ad .mod-v .notification { position: absolute; left: 38px; right: 38px; top: 120px; }
+    .dco-ad .mod-c { left: 72px; top: 990px; padding: 20px; }
+    .dco-ad .mod-l { left: 72px; bottom: 60px; padding: 17px 22px; }
+    .dco-ad .ad .brand { font-size: 54px; }
+    .dco-square .mod-h { top: 80px; height: 245px; }
+    .dco-square .mod-s { top: 355px; }
+    .dco-square .mod-v { top: 500px; height: 285px; }
+    .dco-square .mod-v .poster { height: 285px; width: 285px; }
+    .dco-square .mod-v .notification { top: 65px; }
+    .dco-square .mod-c { top: 850px; left: auto; right: 72px; padding: 18px; }
+    .dco-square .mod-l { bottom: 90px; }
+    .dco-story .mod-h { top: 280px; height: 300px; }
+    .dco-story .mod-h h4 { font-size: 94px; }
+    .dco-story .mod-s { top: 615px; }
+    .dco-story .mod-v { top: 770px; height: 420px; }
+    .dco-story .mod-v .poster { width: 420px; height: 420px; }
+    .dco-story .mod-v .notification { top: 125px; }
+    .dco-story .mod-c { top: 1240px; right: 72px; }
+    .dco-story .mod-c .ad-button { display: flex; }
+    .dco-story .mod-l { bottom: 370px; }
+    .storyboard .story-kicker { position: absolute; top: 280px; left: 76px; }
+    .storyboard .story-copy { position: absolute; left: 76px; right: 76px; top: 530px; }
+    .storyboard .story-copy h4 { font-size: 96px; }
+    .storyboard .story-copy p { margin-top: 35px; font-size: 38px; }
+    .storyboard .ad-brand { bottom: 370px; }
+    .storyboard .poster { top: 700px; right: -240px; }
+    .storyboard .ad-button { position: absolute; left: 76px; right: 76px; top: 1300px; }
+    .storyboard .problem-lines { position: absolute; left: 76px; right: 76px; top: 980px; }
+    .problem-lines div { padding-block: 23px; border-bottom: 1px solid #9DB4EC40; font-size: 36px; color: var(--sky); }
+    .storyboard .notification { position: absolute; left: 76px; right: 76px; top: 940px; }
+    .storyboard .notification + .notification { top: 1140px; left: 120px; }
+    .storyboard .large-lockup { position: absolute; left: 76px; top: 480px; }
+    .storyboard .large-lockup .brand { height: auto; font-size: 92px; }
+    .storyboard .end-head { position: absolute; top: 740px; left: 76px; right: 76px; }
+    .storyboard .end-head h4 { font-size: 90px; }
+    .copy-intro { display: flex; justify-content: space-between; gap: 40px; font-size: 13px; color: #626775; margin-bottom: 25px; }
+    .copy-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 34px; }
+    .copy-lane { border: 1px solid var(--line); background: var(--paper); }
+    .copy-lane-heading { display: flex; align-items: center; justify-content: space-between; padding: 24px 26px; border-bottom: 1px solid var(--line); }
+    .copy-lane-heading h3 { font-size: 24px; }
+    .copy-lane-heading span { font-size: 11px; color: #626775; }
+    .copy-list { list-style: none; margin: 0; padding: 0 26px; counter-reset: copy; }
+    .copy-list li { display: grid; grid-template-columns: 25px 1fr; gap: 12px; padding: 20px 0; border-bottom: 1px solid var(--line); counter-increment: copy; }
+    .copy-list li:last-child { border: 0; }
+    .copy-list li::before { content: counter(copy, decimal-leading-zero); font: 500 10px/1.5 var(--sans); padding-top: 4px; color: #626775; }
+    .copy-pair { font: 600 20px/1.45 var(--serif); letter-spacing: -.02em; color: var(--ink); }
+    .copy-pair .arrow { padding-inline: 7px; font: 400 15px/1 var(--sans); color: var(--blue); }
+    .copy-pair .twist { color: var(--blue); }
+    .copy-use { display: block; margin-top: 5px; color: #626775; font: 400 10px/1.5 var(--sans); letter-spacing: 0; }
+    .production-layout { display: grid; grid-template-columns: 1.4fr .6fr; gap: 30px; }
+    .checklist { padding: 7px 28px; border: 1px solid var(--line); background: var(--paper); }
+    .check-row { display: flex; align-items: start; gap: 14px; padding: 17px 0; border-bottom: 1px solid var(--line); font-size: 13px; cursor: pointer; }
+    .check-row:last-child { border: 0; }
+    .check-row input { flex: none; width: 16px; height: 16px; margin: 4px 0 0; accent-color: var(--blue); }
+    .check-row strong { color: var(--ink); font-weight: 700; }
+    .handoff { border: 1px solid var(--line); padding: 28px; height: fit-content; }
+    .handoff h3 { font-size: 24px; margin-top: 9px; }
+    .handoff p { font-size: 12px; margin-top: 14px; color: #626775; }
+    .handoff dl { margin: 20px 0; font-size: 12px; }
+    .handoff dt { font-weight: 700; color: var(--ink); margin-top: 12px; }
+    .handoff dd { margin: 2px 0 0; color: #626775; }
+    .handoff .file-label { display: block; font: 500 11px/1.8 var(--sans); overflow-wrap: anywhere; padding: 12px; background: var(--paper); border: 1px solid var(--line); }
+    .approval-note { display: flex; justify-content: space-between; align-items: center; gap: 25px; padding: 28px 30px; background: var(--paper); border: 1px solid var(--line); margin-top: 25px; }
+    .approval-note h3 { font-size: 23px; }
+    .approval-note p { font-size: 12px; color: #626775; margin-top: 4px; }
+    .approval-note .seal { width: 76px; height: 76px; flex: none; font-size: 10px; }
+    .site-footer { position: relative; margin-top: 75px; background: var(--surface-stage, #1B2A4E); color: var(--sky); padding: 60px 0 36px; }
+    .footer-top { display: flex; justify-content: space-between; gap: 40px; align-items: start; }
+    .footer-top p { max-width: 740px; font-size: 12px; line-height: 1.9; }
+    .footer-bottom { display: flex; justify-content: space-between; gap: 30px; margin-top: 35px; padding-top: 18px; border-top: 1px solid #9DB4EC30; font-size: 10px; }
+    @media (min-width: 1100px) {
+      .weather-prop { animation: weather 8s ease-in-out infinite; }
+    }
+    @keyframes weather { 0%, 100% { translate: 0 0; } 50% { translate: 0 -8px; } }
+    @media (max-width: 1100px) {
+      .hero-grid { gap: 35px; }
+      .hero-art { scale: .88; transform-origin: center; }
+      .nav-end { display: none; }
+      .nav-inner { justify-content: center; }
+      .foundation-grid { grid-template-columns: 1fr 1fr; }
+      .foundation-panel { padding: 23px; }
+      .canvas-previews { gap: 12px; }
+      .format-grid { gap: 30px; }
+      .media-well { padding: 20px; }
+      .format-wide .spec { gap: 22px; }
+      .motif-grid { grid-template-columns: repeat(4, 1fr); }
+      .motif:nth-child(5) { border-left: 0; }
+      .motif:nth-child(n+5) { border-top: 1px solid var(--line); }
+      .twist-rule { grid-template-columns: .9fr 1fr 1fr; }
+      .twist-explainer, .twist-example { padding: 24px; }
+      .copy-pair { font-size: 18px; }
+      .production-layout { grid-template-columns: 1.3fr .7fr; }
+    }
+    @media (max-width: 800px) {
+      .topbar-note .edition { display: none; }
+      .hero-grid { grid-template-columns: 1fr; padding-block: 55px 70px; gap: 55px; }
+      .hero h1 { font-size: 62px; }
+      .hero-lede { max-width: 560px; }
+      .hero-art { min-height: 370px; max-width: 480px; width: 100%; margin-inline: auto; scale: 1; }
+      .hero-note { right: 0; }
+      .hero-art-label { left: 0; bottom: -33px; }
+      .nav-links { gap: 21px; width: 100%; }
+      .section { padding-top: 55px; }
+      .section-heading { align-items: start; flex-direction: column; gap: 15px; margin-bottom: 27px; }
+      .section-heading > p { max-width: 600px; }
+      .foundation-grid { grid-template-columns: 1fr; }
+      .foundation-panel { padding: 27px; }
+      .foundation-panel + .foundation-panel { border-left: 0; border-top: 1px solid var(--line); }
+      .canvas-previews { max-width: 560px; gap: 25px; }
+      .twist-rule { grid-template-columns: 1fr 1fr; }
+      .twist-explainer { grid-column: 1 / -1; }
+      .surface-grid { gap: 13px; }
+      .surface-demo { height: 170px; padding: 20px; }
+      .surface-demo h4 { font-size: 26px; }
+      .surface-demo .certificate h4 { font-size: 20px; }
+      .utility-grid { grid-template-columns: 1fr; }
+      .format-grid { grid-template-columns: 1fr; }
+      .media-well > .ad-wrap { max-width: 460px; }
+      .media-well--story > .ad-wrap { max-width: 360px; }
+      .format-wide .spec { grid-template-columns: 1fr 1fr; }
+      .format-wide .spec-col:last-child { grid-column: 1 / -1; }
+      .format-wide .spec-col:last-child { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+      .library-intro { flex-direction: column; gap: 12px; }
+      .library-intro .legend { max-width: none; }
+      .ab-grid { gap: 18px; }
+      .dco-grid { grid-template-columns: repeat(3, minmax(270px, 1fr)); overflow-x: auto; align-items: start; }
+      .copy-columns { grid-template-columns: 1fr; gap: 24px; }
+      .production-layout { grid-template-columns: 1fr; }
+      .copy-intro { flex-direction: column; gap: 10px; }
+      .footer-top { flex-direction: column; gap: 24px; }
+    }
+    @media (max-width: 520px) {
+      .topbar { padding-block: 20px; }
+      .topbar-note { font-size: 10px; }
+      .brand { font-size: 25px; }
+      .hero h1 { font-size: 50px; }
+      .hero-lede { font-size: 16px; }
+      .hero-actions { gap: 18px; }
+      .hero-actions .small { font-size: 11px; }
+      .hero-art { min-height: 350px; }
+      .hero-sheet { width: 285px; padding: 27px; margin-right: 20px; }
+      .hero-sheet h2 { font-size: 34px; margin-block: 26px; }
+      .hero-note { width: 200px; bottom: -10px; right: -3px; padding: 15px 18px; }
+      .hero-note strong { font-size: 19px; }
+      .hero-art-label { bottom: -43px; font-size: 9px; }
+      .nav-links { gap: 20px; padding-block: 15px; }
+      .nav-links a { font-size: 11px; }
+      .nav-inner { min-height: 54px; }
+      .section-heading h2 { font-size: 33px; }
+      .foundation-panel { padding: 21px; }
+      .panel-heading { flex-wrap: wrap; gap: 7px; }
+      .canvas-previews { gap: 12px; }
+      .canvas-previews figcaption { font-size: 9px; }
+      .canvas-previews figcaption strong { font-size: 10px; }
+      .type-table td:last-child { max-width: 135px; }
+      .twist-example { padding: 23px 19px; }
+      .twist-example p { font-size: 23px; }
+      .surface-grid { grid-template-columns: 1fr; gap: 23px; }
+      .surface-demo { height: 185px; }
+      .surface-demo h4 { font-size: 31px; }
+      .surface-demo .certificate { max-width: 270px; }
+      .utility-card { padding: 23px; }
+      .cta-samples { gap: 19px; }
+      .cta-samples .button { padding: 12px 17px; font-size: 12px; }
+      .cta-samples .text-cta { font-size: 12px; }
+      .cta-samples .seal { width: 73px; height: 73px; font-size: 10px; }
+      .subsection-heading { flex-direction: column; gap: 7px; }
+      .motif { padding-inline: 5px; }
+      .motif strong { font-size: 11px; }
+      .motif p { font-size: 9px; }
+      .photo-rule { grid-template-columns: 1fr; gap: 15px; }
+      .photo-swatch { height: 120px; }
+      .format { padding-block: 38px; }
+      .format-title { gap: 12px; flex-wrap: wrap; }
+      .format-title h3 { font-size: 25px; }
+      .format-number { min-width: 32px; font-size: 12px; }
+      .format-title > div { flex: 1; }
+      .format-title .tag { margin-left: 44px; margin-top: -8px; }
+      .media-well { padding: 14px; }
+      .ab-grid { grid-template-columns: 1fr; gap: 25px; }
+      .format-wide .spec { grid-template-columns: 1fr; gap: 0; }
+      .format-wide .spec-col:last-child { display: block; }
+      .do-dont { gap: 18px; }
+      .rail { grid-auto-columns: 285px; }
+      .dco-grid { grid-template-columns: repeat(3, 285px); }
+      .copy-lane-heading, .checklist, .handoff { padding-inline: 21px; }
+      .copy-list { padding-inline: 21px; }
+      .copy-pair { font-size: 18px; }
+      .copy-pair .arrow { padding-inline: 4px; }
+      .approval-note { padding: 22px; }
+      .approval-note h3 { font-size: 21px; }
+      .footer-bottom { flex-direction: column; gap: 8px; }
+      .section-wave { margin-top: 55px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+    @media print {
+      .site-nav { position: static; }
+      .hero-art, .weather-prop { animation: none; }
+      .format, .foundation-panel, .copy-lane { break-inside: avoid; }
+      .rail, .dco-grid { overflow: visible; }
+      .check-row input { appearance: none; border: 1px solid var(--ink); }
+      body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    }
+  
+/* ---- QA patches (post-Astra, 2026-10-19) ---- */
+.surface-demo.plaque-demo { display:block; padding:16px; }
+.surface-demo.plaque-demo .certificate { position:absolute; inset:16px; width:auto; height:auto; display:flex; flex-direction:column; justify-content:flex-end; align-items:flex-start; padding:26px 30px; }
+.surface-demo.plaque-demo .certificate .eyebrow { margin-bottom:6px; }
+.site-nav { background: var(--kohai-shironeri, #F5F0E8); backdrop-filter:none; }
+.storyboard .story-copy h4 { font-size: 84px; }
+.storyboard .notification { top: 1000px; }
+.storyboard .notification + .notification { top: 1190px; }
+.scene-ad .employee-plaque { top: 360px; height: 600px; }
+.scene-ad .notification.weather-prop { top: 1000px; }
+.scene-ad .scene-head p { margin-top: 14px; }
+.ad .pin { width:34px; height:34px; font-size:19px; background:#C2A24B; color:#1B2A4E; border-color:#1B2A4E; box-shadow:0 0 0 2px #F5F0E8; }
+.proof-line { font-size: 30px; }
+</style>
+</head>
+<body>
+  <svg class="svg-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="kohai-torii" viewBox="0 0 32 32">
+      <path fill="#CB4C49" d="M9.8418 9.16895H22.1592V9.16406H25.0762V29.2607H22.1592V12.0859H9.8418V29.2607H6.9248V9.16406H9.8418V9.16895ZM28.9658 5.9248H3.03516V3.00781H28.9658V5.9248Z"/>
+    </symbol>
+  </svg>
+
+  <header class="site-header" id="overview">
+    <div class="wrap topbar">
+      <a href="#overview" class="brand" aria-label="Kōhai, overview">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><use href="#kohai-torii"/></svg>
+        <span>Kōhai</span>
+      </a>
+      <div class="topbar-note">
+        <span>Creative field guide</span>
+        <span class="edition">Meta · Instagram · TikTok</span>
+      </div>
+    </div>
+    <div class="hero">
+      <div class="stage-band stage-band--top kohai-seigaiha-border" aria-hidden="true"></div>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">The message earns the click</p>
+          <h1>Ad design<br><span>system.</span></h1>
+          <p class="hero-lede">A working reference for turning proven ad formats into unmistakably Kōhai creative.</p>
+          <div class="hero-actions">
+            <a class="button" href="#formats">Explore the formats <span aria-hidden="true">→</span></a>
+            <span class="small">11 formats<br>One coherent language</span>
+          </div>
+          <p class="hero-version">v1 · built from brand pack v2 · Oct 2026</p>
+        </div>
+        <div class="hero-art" aria-label="Editorial preview of the Kōhai visual language">
+          <span class="kamon k-asanoha hero-crest" aria-hidden="true"></span>
+          <div class="hero-sheet">
+            <div class="pattern kohai-asanoha ambient-4" aria-hidden="true"></div>
+            <p class="eyebrow">An extra pair of hands</p>
+            <h2>Hire AI<br>employees.<br><span>Get finished<br>work.</span></h2>
+            <div class="hero-sheet-foot">
+              <span class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#kohai-torii"/></svg><span>Kōhai</span></span>
+              <span>Calm. Capable. Clear.</span>
+            </div>
+            <div class="wave-rule kohai-seigaiha-border" aria-hidden="true" style="margin-top:20px;height:9px"></div>
+          </div>
+          <div class="hero-note">
+            <strong>Quiet confidence.<br>Finished work.</strong>
+            <span>Silk · Indigo · Editorial type</span>
+          </div>
+          <p class="hero-art-label">Brand-led, not competitor-shaped.</p>
+        </div>
+      </div>
+      <div class="stage-band kohai-seigaiha-border" aria-hidden="true"></div>
+    </div>
+  </header>
+
+  <nav class="site-nav" aria-label="Main sections">
+    <div class="wrap nav-inner">
+      <div class="nav-links">
+        <a href="#overview"><span>00</span>Overview</a>
+        <a href="#foundations"><span>01</span>Foundations</a>
+        <a href="#formats"><span>02</span>Format library</a>
+        <a href="#copy-bank"><span>03</span>Copy bank</a>
+        <a href="#production"><span>04</span>Pre-flight</a>
+        <a href="#source-notes"><span>05</span>Sources</a>
+      </div>
+      <span class="nav-end">Reference, not a launch approval</span>
+    </div>
+  </nav>
+
+  <main>
+    <section class="section wrap" id="foundations" aria-labelledby="foundations-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">01 / Ad foundations</p>
+          <h2 id="foundations-title">A billboard. Not a web page.</h2>
+        </div>
+        <p>One idea. One focal point. One next step. Scale the brand up; leave the interface density behind.</p>
+      </div>
+
+      <div class="foundation-grid">
+        <div class="foundation-panel">
+          <div class="panel-heading">
+            <h3>Start with the canvas.</h3>
+            <span>All dimensions in export pixels</span>
+          </div>
+          <div class="canvas-previews">
+            <figure>
+              <div class="ad-wrap ratio-feed">
+                <div class="ad guide-ad">
+                  <div class="safe-outline"></div>
+                  <div class="guide-center"><b>4:5</b><span>Feed</span></div>
+                  <span class="margin-label">60px inset</span>
+                </div>
+              </div>
+              <figcaption><strong>Feed · 4:5</strong>1080 × 1350</figcaption>
+            </figure>
+            <figure>
+              <div class="ad-wrap ratio-square">
+                <div class="ad guide-ad">
+                  <div class="safe-outline"></div>
+                  <div class="guide-center"><b>1:1</b><span>Square</span></div>
+                  <span class="margin-label">60px inset</span>
+                </div>
+              </div>
+              <figcaption><strong>Square · 1:1</strong>1080 × 1080</figcaption>
+            </figure>
+            <figure>
+              <div class="ad-wrap ratio-story">
+                <div class="ad guide-ad">
+                  <div class="danger danger--top">250px</div>
+                  <div class="danger danger--bottom">340px</div>
+                  <div class="safe-outline safe-story"></div>
+                  <div class="guide-center"><b>9:16</b><span>Story / Reels</span></div>
+                </div>
+              </div>
+              <figcaption><strong>Vertical · 9:16</strong>1080 × 1920</figcaption>
+            </figure>
+          </div>
+          <p class="foundation-note">Dashed lines = live area. Keep a <strong>60px minimum inset</strong> on every canvas. For 9:16, reserve the top <strong>250px</strong> and bottom <strong>340px</strong> for platform chrome. These are conservative template guides; check each live Meta and TikTok placement.</p>
+        </div>
+        <div class="foundation-panel">
+          <div class="panel-heading">
+            <h3>Type that survives the scroll.</h3>
+            <span>At 1080px wide</span>
+          </div>
+          <table class="type-table" aria-label="Ad typography scale">
+            <tbody>
+              <tr><td><span class="type-sample-display">Display headline</span></td><td>Mincho 600 · 84–96px<br>1.08 line height</td></tr>
+              <tr><td><span class="type-sample-head">Headline</span></td><td>Mincho 600 · 64–72px<br>1.08–1.15 line height</td></tr>
+              <tr><td><span class="type-sample-sub">Subhead</span></td><td>Zen Kaku 500 · 34–38px<br>1.35 line height</td></tr>
+              <tr><td><span class="type-sample-body">Body copy</span></td><td>Zen Kaku 400 · 30–32px<br>1.45 line height</td></tr>
+              <tr><td><span class="eyebrow">Eyebrow</span></td><td>Zen Kaku 700 · 24px<br>.14em tracking</td></tr>
+              <tr><td><span class="type-sample-cta">Start free →</span></td><td>Zen Kaku 700 · 30px<br>6px button radius</td></tr>
+            </tbody>
+          </table>
+          <p class="foundation-note">Minimums: <strong>64px headline, 30px body / CTA, 24px auxiliary labels</strong>. Never shrink essential copy to fit. Rewrite it. Serif is for headlines and the wordmark, never UI chrome. Chips use sans 500; names and labels use sans 700 unless treated as a display headline.</p>
+        </div>
+      </div>
+
+      <div class="twist-rule">
+        <div class="twist-explainer">
+          <h3>Anchor → twist.</h3>
+          <p>Set up the familiar. Turn toward the useful. Change the ink, not the typeface. Never use sakura, kin, or aka for the twist.</p>
+        </div>
+        <div class="twist-example">
+          <p>Keep the job moving.<br><span>Hand off the paperwork.</span></p>
+          <small>Kon anchor · Ai-indigo twist</small>
+        </div>
+        <div class="twist-example twist-example--dark">
+          <p>Keep the job moving.<br><span>Hand off the paperwork.</span></p>
+          <small>Shironeri anchor · Sky-on-dark twist</small>
+          <div class="stage-band stage-band--top kohai-seigaiha-border" aria-hidden="true"></div>
+          <div class="stage-band kohai-seigaiha-border" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <div class="subsection-heading">
+        <h3>Three surfaces. Two background families.</h3>
+        <p>Silk / washi + indigo stage. Never a third color field.</p>
+      </div>
+      <div class="surface-grid">
+        <figure>
+          <div class="surface-demo">
+            <div class="pattern kohai-asanoha ambient-4" aria-hidden="true"></div>
+            <p class="eyebrow">01 / The everyday canvas</p>
+            <h4>Silk.</h4>
+          </div>
+          <figcaption class="surface-caption"><strong>Shironeri + asanoha at 4%.</strong> Air, structure, and generous negative space. Ambient texture stays between 3–6%.</figcaption>
+        </figure>
+        <figure>
+          <div class="surface-demo stage">
+            <span class="kamon k-seigaiha poster" aria-hidden="true"></span>
+            <p class="eyebrow">02 / The focal stage</p>
+            <h4>Indigo.</h4>
+            <div class="stage-band kohai-seigaiha-border" aria-hidden="true"></div>
+          </div>
+          <figcaption class="surface-caption"><strong>Surface-stage + one cropped crest at 9%.</strong> Grounds stay at 8–11%; focal poster marks at 7–11%. A seigaiha band marks the cut.</figcaption>
+        </figure>
+        <figure>
+          <div class="surface-demo plaque-demo">
+            <div class="certificate"><span class="eyebrow">03 / The proof card</span><h4>Washi.</h4></div>
+          </div>
+          <figcaption class="surface-caption"><strong>Surface-card on silk.</strong> Double-line certificate frame, concave notched corners. Reserved for offers, pricing, and substantiated proof.</figcaption>
+        </figure>
+      </div>
+
+      <div class="token-strip" aria-label="Color roles">
+        <span class="token"><i style="--swatch:#1F4E8C"></i>Ai-indigo · Action</span>
+        <span class="token"><i style="--swatch:#1B2A4E"></i>Kon · Headings / stages</span>
+        <span class="token"><i style="--swatch:#F5F0E8"></i>Shironeri · Canvas</span>
+        <span class="token"><i style="--swatch:#FBF8F2"></i>Washi · Cards</span>
+        <span class="token"><i style="--swatch:#2C2C2C"></i>Sumi · Body</span>
+        <span class="token"><i style="--swatch:#9DB4EC"></i>Sky · Dark-stage copy</span>
+        <span class="token"><i style="--swatch:#7A9033"></i>Matcha · Success / “Popular”</span>
+        <span class="token"><i style="--swatch:#F2A7B0"></i>Sakura · Blossoms only</span>
+        <span class="token"><i style="--swatch:#C2A24B"></i>Kin · Ichimonji strips</span>
+        <span class="token"><i style="--swatch:#CB4C49"></i>Aka · Torii only</span>
+      </div>
+
+      <div class="utility-grid">
+        <div class="utility-card">
+          <h3>Indigo does the work.</h3>
+          <div class="cta-samples" aria-label="CTA and approval examples">
+            <span class="button">Start free <span aria-hidden="true">→</span></span>
+            <span class="text-cta">Start free →</span>
+            <span class="seal">Approved<br>by you</span>
+          </div>
+          <p>Primary: ai-indigo, shironeri text, sans 700, radius 6px. No pills. Text CTA: the same indigo, with a thin arrow. The circular <strong>hanko</strong> is an approval stamp, not a claim of certification. “Start free” is usable only when the destination has an approved free offer.</p>
+        </div>
+        <div class="utility-card">
+          <h3>Sign the corner.</h3>
+          <div class="logo-rule">
+            <span class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#kohai-torii"/></svg><span>Kōhai</span></span>
+            <span>44–56px high<br>at export size</span>
+          </div>
+          <p>Default: bottom-left, inside the live area. Wordmark: Shippori Mincho 500; gap ≈ .45× wordmark size. On dark, use shironeri. Mark-only is allowed at the <strong>9:16 live-area top-left</strong>, not beneath platform chrome. End cards may enlarge the lockup.</p>
+        </div>
+      </div>
+
+      <div class="subsection-heading">
+        <h3>Choose a crest for its meaning.</h3>
+        <p>One focal crest per ad. Ornament is trim, not wallpaper.</p>
+      </div>
+      <div class="motif-grid">
+        <div class="motif"><span class="kamon k-seigaiha" aria-hidden="true"></span><strong>Seigaiha</strong><p>Flow<br>How it works</p></div>
+        <div class="motif"><span class="kamon k-sakura" aria-hidden="true"></span><strong>Sakura</strong><p>People<br>Roster</p></div>
+        <div class="motif"><span class="kamon k-asanoha" aria-hidden="true"></span><strong>Asanoha</strong><p>Structure<br>Growth</p></div>
+        <div class="motif"><span class="kamon k-kikyo" aria-hidden="true"></span><strong>Kikyō</strong><p>Craft<br>The brief</p></div>
+        <div class="motif"><span class="kamon k-matsu" aria-hidden="true"></span><strong>Matsu</strong><p>Endurance<br>Privacy</p></div>
+        <div class="motif"><span class="kamon k-igeta" aria-hidden="true"></span><strong>Igeta</strong><p>Foundations<br>Pricing / integrations</p></div>
+        <div class="motif"><span class="kamon k-ogi" aria-hidden="true"></span><strong>Ōgi</strong><p>Conversation<br>Meetings</p></div>
+        <div class="motif"><span class="kamon k-kikko" aria-hidden="true"></span><strong>Kikkō</strong><p>Results<br>Analytics</p></div>
+      </div>
+
+      <div class="photo-rule">
+        <div class="photo-swatch" aria-hidden="true">
+          <span>Indigo grade · Silk highlights</span>
+          <div class="stage-band kohai-seigaiha-border"></div>
+        </div>
+        <div>
+          <h4>When the format needs a camera</h4>
+          <p>The core pack has no photography; illustration is botanical line-work. For creator, documentary, or filmed scene ads, source cleared footage and grade it to <strong>kon shadows + silk highlights</strong>. Add a stage-gradient scrim behind type, a seigaiha border band at the cut, and a small corner lockup. Do not simulate a customer or creator with a fabricated portrait. Gradient media fields below are visibly marked placeholders.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="wave-rule section-wave kohai-seigaiha-border" aria-hidden="true"></div>
+
+    <section class="section wrap" id="formats" aria-labelledby="formats-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">02 / Format library</p>
+          <h2 id="formats-title">Borrow the mechanism.<br>Keep the character.</h2>
+        </div>
+        <p>Eleven competitive patterns, translated into construction and SMB creative. Source patterns are creative references—not performance guarantees.</p>
+      </div>
+      <div class="library-intro">
+        <p><strong>How to read this library:</strong> each preview is a scaled, native 1080px artboard. Numbered pins match the anatomy notes and are reference-only. Character limits include spaces; keep still headlines to eight words where possible.</p>
+        <p class="legend"><strong>Placeholder key:</strong> <span class="ph">dotted underline</span> = replace or substantiate before launch. <span class="ph">Hana</span>, <span class="ph">Matsuo</span>, and <span class="ph">Kiku</span> are stand-in employee names. All capability copy is a draft pending product approval.</p>
+      </div>
+      <nav class="format-index" aria-label="Jump to an ad format">
+        <a href="#f1">F1 · Quote</a><a href="#f2">F2 · Employee</a><a href="#f3">F3 · Offer</a>
+        <a href="#f4">F4 · Reframe</a><a href="#f5">F5 · Step list</a><a href="#f6">F6 · Proof</a>
+        <a href="#f7">F7 · Creator</a><a href="#f8">F8 · Documentary</a><a href="#f9">F9 · Roster</a>
+        <a href="#f10">F10 · DCO</a><a href="#f11">F11 · Storyboard</a>
+      </nav>
+
+      <article class="format format-wide" id="f1" aria-labelledby="f1-title">
+        <div class="format-title">
+          <span class="format-number">F1</span>
+          <div><h3 id="f1-title">Type-only quote card</h3><p>Familiar category. Unfamiliar outcome.</p></div>
+          <span class="tag">4:5 · Prospecting</span>
+        </div>
+        <div class="media-well">
+          <div class="ab-grid">
+            <figure>
+              <div class="variant-label"><strong>A / Change orders</strong><span>Control hook</span></div>
+              <div class="ad-wrap ratio-feed">
+                <div class="ad quote-ad">
+                  <p class="ad-eyebrow">For the work after the work</p>
+                  <div class="quote-copy"><h4>It's literally<br>ChatGPT,<br><span class="ad-twist">except it drafts<br>the change<br>order.</span></h4></div>
+                  <span class="ad-link">Meet your crew →</span>
+                  <div class="quote-line"></div>
+                  <span class="brand ad-brand"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#kohai-torii"/></svg><span>Kōhai</span></span>
+                  <span class="pin" style="left:22px;top:235px">1</span><span class="pin" style="left:22px;bottom:273px">2</span><span class="pin" style="left:22px;bottom:78px">3</span>
+                </div>
+              </div>
+            </figure>
+            <figure>
+              <div class="variant-label"><strong>B / Bid handoff</strong><span>Only the hook changes</span></div>
+              <div class="ad-wrap ratio-feed">
+                <div class="ad quote-ad">
+                  <p class="ad-eyebrow">For the work after the work</p>
+                  <div class="quote-copy"><h4>It's literally<br>ChatGPT,<br><span class="ad-twist">except it gets<br>the bid<br>handoff ready.</span></h4></div>
+                  <span class="ad-link">Meet your crew →</span>
+                  <div class="quote-line"></div>
+                  <span class="brand ad-brand"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#kohai-torii"/></svg><span>Kōhai</span></span>
+                  <span class="pin" style="left:22px;top:235px">1</span><span class="pin" style="left:22px;bottom:273px">2</span><span class="pin" style="left:22px;bottom:78px">3</span>
+                </div>
+              </div>
+            </figure>
+          </div>
+          <div class="media-caption"><span>Controlled A/B · Same typography, CTA, color, and placement</span><span>1080 × 1350</span></div>
+        </div>
+        <div class="spec">
+          <div class="spec-col">
+            <div class="spec-block"><h4>Source pattern</h4><p><span class="source-name">Lindy.</span> Copy the immediate category analogy, giant type, and contrasting outcome—not a customer quote or competitor identity.</p><p class="when"><strong>When to use</strong><span>Cold prospecting; test the job-to-be-done hook.</span></p></div>
+            <div class="do-dont"><p><strong>Do</strong>Hold every variable but the hook constant.</p><p class="dont"><strong>Don't</strong>Imply ChatGPT affiliation or present this as a testimonial.</p></div>
+          </div>
+          <div class="spec-col">
+            <div class="spec-block"><h4>Anatomy</h4><ol class="anatomy"><li>96px serif hook: familiar anchor in kon, useful twist in ai-indigo.</li><li>One quiet text CTA, identically positioned in A and B.</li><li>54px corner lockup beneath a hairline.</li></ol></div>
+            <p class="spec-footnote">This source-faithful long-hook control exceeds the eight-word still guideline. Test a short bank headline against the winner; do not reduce type size.</p>
+          </div>
+          <div class="spec-col">
+            <div class="spec-block"><h4>Copy slots · Maximum characters</h4><dl class="slots"><dt>Eyebrow</dt><dd>30</dd><dt>Full hook, including twist</dt><dd>80</dd><dt>Text CTA</dt><dd>22</dd></dl></div>
+            <div><h4>Kōhai adaptation</h4><p>Silk, no extra ornament, no invented attribution. The reference phrase “It's literally ChatGPT, except it…” is a comparative-copy concept requiring legal and product review; retain the structure if the wording changes.</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="format" id="f2" aria-labelledby="f2-title">
+        <div class="format-title">
+          <span class="format-number">F2</span>
+          <div><h3 id="f2-title">Named-employee scene</h3><p>Make the handoff feel human. Keep the evidence concrete.</p></div>
+          <span class="tag">4:5 · Consideration</span>
+        </div>
+        <div class="format-grid">
+          <figure class="media-well">
+            <div class="ad-wrap ratio-feed">
+              <div class="ad ad-stage scene-ad">
+                <div class="scene-head"><h4><span class="ph">Hana</span> finishes the takeoff.</h4><p>while you're at the job walk.</p></div>
+                <div class="employee-plaque">
+                  <span class="kamon k-kikyo poster" aria-hidden="true"></span>
+                  <p class="employee-top ad-eyebrow">Your estimating desk</p>
+                  <div class="drawing" aria-hidden="true"></div>
+                  <p class="employee-name"><span class="ph">Hana</span></p>
+                  <p class="employee-role">Estimator · AI employee</p>
+                </div>
+                <div class="notification weather-prop"><strong>Takeoff complete</strong> · <span class="ph">[N]</span> line items<span class="status-line">Prepared for your review</span></div>
+                <span class="brand ad-brand"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#kohai-torii"/></svg><span>Kōhai</span></span>
+                <div class="stage-band kohai-seigaiha-border" aria-hidden="true"></div>
+                <span class="pin" style="left:23px;top:110px">1</span><span class="pin" style="left:121px;top:410px">2</span><span class="pin" style="left:230px;top:1012px">3</span><span class="pin" style="left:23px;bottom:78px">4</span>
+              </div>
+            </div>
+            <figcaption class="media-caption"><span>Illustrated scene · No fabricated employee portrait</span><span>1080 × 1350</span></figcaption>
+          </figure>
+          <div class="spec">
+            <div class="spec-block"><h4>Source pattern</h4><p><span class="source-name">Marblism.</span> Borrow the named employee, completed-task prop, and “work happens while life happens” contrast.</p><p class="when"><strong>When to use</strong><span>Consideration; introduce one role to estimators or GC owners.</span></p></div>
+            <div class="spec-block"><h4>Anatomy</h4><ol class="anatomy"><li>Single-line 64px headline + a 36px time-contrast line.</li><li>Abstract name plaque; Kikyō at 9% signals craft and precision.</li><li>One washi notification with a verified task result or marked placeholder.</li><li>Small corner lockup; seigaiha band closes the stage.</li></ol></div>
+            <div class="spec-block"><h4>Copy slots · Maximum characters</h4><dl class="slots"><dt>Headline / ≤ 8 words</dt><dd>32</dd><dt>Lifestyle contrast</dt><dd>40</dd><dt>Name / role</dt><dd>12 / 24</dd><dt>Notification / status</dt><dd>44 / 32</dd></dl></div>
+            <div class="spec-block"><h4>Kōhai adaptation</h4><p><span class="ph">Hana</span> is a stand-in, not an announced employee. The line-item count is <span class="ph">[N]</span>, not a fabricated “214.” Use a verified capture before claiming completion. For filmed scenes, apply the photo treatment.</p></div>
+            <div class="do-dont"><p><strong>Do</strong>Show one role, one task, one moment outside the screen.</p><p class="dont"><strong>Don't</strong>Suggest error-free takeoffs or unsupervised approval.</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="format" id="f3" aria-labelledby="f3-title">
+        <div class="format-title">
+          <span class="format-number">F3</span>
+          <div><h3 id="f3-title">Anchor-twist + offer</h3><p>Make the category clear. Give the decision a frame.</p></div>
+          <span class="tag">4:5 · Conversion</span>
+        </div>
+        <div class="format-grid">
+          <figure class="media-well">
+            <div class="ad-wrap ratio-feed">
+              <div class="ad ad-stage offer-ad">
+                <span class="kamon k-igeta poster" aria-hidden="true"></span>
+                <div class="offer-copy">
+                  <h4><span class="ph">[N]</span> AI employees.<br><span class="ad-twist">Without <span class="ph">[N]</span><br>salaries.</span></h4>
+                  <p class="ad-body">A crew for the work behind your business.</p>
+                  <span class="ad-button">Meet your crew <span aria-hidden="true">→</span></span>
+                </div>
+                <div class="certificate offer-plaque">
+                  <div class="gold-strip" aria-hidden="true"></div>
+                  <p class="ad-eyebrow" style="color:var(--blue)">Your next hire</p>
+                  <p class="price"><span class="ph" style="font:inherit">$X</span><span>/mo</span></p>
+                  <p class="plaque-note"><span class="ph">[Plan name]</span><br><span class="ph">[Billing terms]</span></p>
+                  <div class="stage-band kohai-seigaiha-border" aria-hidden="true" style="height:22px;color:var(--blue)"></div>
+                </div>
+                <p class="proof-line"><span class="ph">[N] teams</span> hired Kōhai</p>
+                <span class="brand ad-brand"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#kohai-torii"/></svg><span>Kōhai</span></span>
+                <div class="stage-band kohai-seigaiha-border" aria-hidden="true"></div>
+                <span class="pin" style="left:26px;top:135px">1</span><span class="pin" style="left:26px;top:600px">2</span><span class="pin" style="left:26px;top:860px">3</span><span class="pin" style="left:26px;bottom:178px">4</span>
+              </div>
+            </div>
+            <figcaption class="media-caption"><span>Offer draft · Count, price, and proof require approval</span><span>1080 × 1350</span></figcaption>
+          </figure>
+          <div class="spec">
+            <div class="spec-block"><h4>Source pattern</h4><p><span class="source-name">Sintra.</span> Borrow the staffing-versus-salaries anchor, a direct CTA, and a separate offer plaque.</p><p class="when"><strong>When to use</strong><span>Warm audiences or offer-led SMB acquisition, after terms are approved.</span></p></div>
+            <div class="spec-block"><h4>Anatomy</h4><ol class="anatomy"><li>Paired serif statement. Anchor in shironeri; twist in sky.</li><li>One line of context + one indigo action.</li><li>Washi certificate plaque, gold ichimonji strip, explicit billing terms.</li><li>Subordinate social-proof line; remove it if unsubstantiated.</li></ol></div>
+            <div class="spec-block"><h4>Copy slots · Maximum characters</h4><dl class="slots"><dt>Headline / ≤ 8 words</dt><dd>58</dd><dt>Subhead</dt><dd>60</dd><dt>CTA / proof</dt><dd>20 / 40</dd><dt>Price / plan / terms</dt><dd>12 / 20 / 35</dd></dl></div>
+            <div class="spec-block"><h4>Kōhai adaptation</h4><p>The source-shaped concept is “12 AI employees. Without 12 salaries.” No Kōhai headcount is verified here, so both count slots remain <span class="ph">[N]</span>. Igeta belongs to pricing and foundations. Never imply that the subscription is the only cost or replaces licensed judgment.</p></div>
+            <div class="do-dont"><p><strong>Do</strong>Verify employee count, monthly basis, billing term, and team-count methodology.</p><p class="dont"><strong>Don't</strong>Publish a sample price, fake discount, or unqualified savings comparison.</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="format" id="f4" aria-labelledby="f4-title">
+        <div class="format-title">
+          <span class="format-number">F4</span>
+          <div><h3 id="f4-title">Attention reframe</h3><p>Not another place to look. A reason to look here first.</p></div>
+          <span class="tag">1:1 · Awareness</span>
+        </div>
+        <div class="format-grid">
+          <figure class="media-well">
+            <div class="ad-wrap ratio-square">
+              <div class="ad attention-ad">
+                <div class="pattern kohai-asanoha ambient-4" aria-hidden="true"></div>
+                <p class="ad-eyebrow">A clearer start to the day</p>
+                <div class="tool-row" aria-label="Neutral tool categories">
+                  <div class="tool"><i class="tool-icon" aria-hidden="true"></i><span>Inbox</span></div>
+                  <div class="tool"><i class="tool-icon calendar" aria-hidden="true"></i><span>Calendar</span></div>
+                  <div class="tool"><i class="tool-icon" aria-hidden="true"></i><span>PM tool</span></div>
+                  <div class="tool"><i class="tool-icon plans" aria-hidden="true"></i><span>Plan sheets</span></div>
+                </div>
+                <div class="brief-card">
+                  <p class="brief-label">Your morning brief</p>
+                  <h4>Before your inbox,<br>your PM tool, or<br>your plan sheets —<br><span class="ad-twist">Kōhai tells you<br>what matters.</span></h4>
+                </div>
+                <span class="brand ad-brand"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#kohai-torii"/></svg><span>Kōhai</span></span>
+                <span class="pin" style="left:24px;top:225px">1</span><span class="pin" style="left:65px;top:390px">2</span><span class="pin" style="left:24px;bottom:78px">3</span>
+              </div>
+            </div>
+            <figcaption class="media-caption"><span>Neutral UI props · No integration or endorsement implied</span><span>1080 × 1080</span></figcaption>
+          </figure>
+          <div class="spec">
+            <div class="spec-block"><h4>Source pattern</h4><p><span class="source-name">Town.</span> Borrow the hierarchy inversion: familiar tools recede; a priority brief becomes the focal object.</p><p class="when"><strong>When to use</strong><span>Problem-aware PMs, superintendents, and overwhelmed SMB owners.</span></p></div>
+            <div class="spec-block"><h4>Anatomy</h4><ol class="anatomy"><li>Four neutral, dimmed tool tiles; generic “PM tool,” not a borrowed product logo.</li><li>Elevated brief card; the first phrase sets the context, indigo carries the reframe.</li><li>Corner signature; asanoha remains at 4% in the background.</li></ol></div>
+            <div class="spec-block"><h4>Copy slots · Maximum characters</h4><dl class="slots"><dt>Eyebrow / brief label</dt><dd>30 / 22</dd><dt>Tool labels, each</dt><dd>12</dd><dt>Source-faithful statement</dt><dd>110</dd><dt>Short-hook alternative</dt><dd>48</dd></dl></div>
+            <div class="spec-block"><h4>Kōhai adaptation</h4><p>Use a Procore-style category tile without imitating Procore branding. Validate every implied data source. This long-form reference is an intentional exception; the launch-ready short test is “Open your brief. Know what matters.”</p></div>
+            <div class="do-dont"><p><strong>Do</strong>Make the brief legible before the tool row.</p><p class="dont"><strong>Don't</strong>Claim integrations, priority accuracy, or access the product does not support.</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="format" id="f5" aria-labelledby="f5-title">
+        <div class="format-title">
+          <span class="format-number">F5</span>
+          <div><h3 id="f5-title">Step-list vertical persona</h3><p>The vertical-lane workhorse. One audience, one sequence.</p></div>
+          <span class="tag">9:16 · Prospecting</span>
+        </div>
+        <div class="format-grid">
+          <figure class="media-well media-well--story">
+            <div class="ad-wrap ratio-story">
+              <div class="ad steps-ad">
+                <div class="pattern kohai-asanoha ambient-4" aria-hidden="true"></div>
+                <div class="step-head"><p class="ad-eyebrow">For estimators</p><h4>Kōhai can:</h4></div>
+                <ol class="step-list">
+                  <li><span class="kamon k-seigaiha" aria-hidden="true"></span><span>Organize the<br>bid documents.</span></li>
+                  <li><span class="kamon k-seigaiha" aria-hidden="true"></span><span>Draft the<br>scope questions.</span></li>
+                  <li><span class="kamon k-seigaiha" aria-hidden="true"></span><span>Prepare the<br>RFI follow-up.</span></li>
+                  <li><span class="kamon k-seigaiha" aria-hidden="true"></span><span>Queue the handoff<br>for your review.</span></li>
+                </ol>
+                <span class="ad-button">Meet your estimating crew <span aria-hidden="true">→</span></span>
+                <span class="brand ad-brand"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#kohai-torii"/></svg><span>Kōhai</span></span>
+                <span class="pin" style="left:30px;top:280px">1</span><span class="pin" style="left:30px;top:380px">2</span><span class="pin" style="left:30px;top:575px">3</span><span class="pin" style="left:30px;top:1365px">4</span>
+              </div>
+            </div>
+            <figcaption class="media-caption"><span>Live content: y 250–1580 · 60px side minimum</span><span>1080 × 1920</span></figcaption>
+          </figure>
+          <div class="spec">
+            <div class="spec-block"><h4>Source pattern</h4><p><span class="source-name">Perplexity.</span> Borrow the “Computer can…” capability list, persona label, and instantly scannable vertical rhythm. Replace emoji pointers with meaningful crests and thin arrows.</p><p class="when"><strong>When to use</strong><span>Cold lane-specific acquisition. First template to test for estimators, PMs, superintendents, and SMB owners.</span></p></div>
+            <div class="spec-block"><h4>Anatomy</h4><ol class="anatomy"><li>Uppercase persona eyebrow, fully beneath the 250px danger zone.</li><li>Short 96px serif introduction.</li><li>Three or four verb-led steps. Repeated small Seigaiha bullets mean flow; no competing focal crest.</li><li>Full-width indigo CTA and a quiet logo above the bottom danger zone.</li></ol></div>
+            <div class="spec-block"><h4>Copy slots · Maximum characters</h4><dl class="slots"><dt>Persona label</dt><dd>24</dd><dt>Headline</dt><dd>24</dd><dt>Each step / 4 maximum</dt><dd>40</dd><dt>CTA</dt><dd>28</dd></dl></div>
+            <div class="spec-block"><h4>Kōhai adaptation</h4><p>A construction sequence ends in human review. For SMB, swap only persona and tasks: organize the inbox → draft replies → prepare meeting notes → queue follow-ups. Keep the order coherent and verify each capability.</p></div>
+            <div class="do-dont"><p><strong>Do</strong>Keep each step to two lines and start with a verb.</p><p class="dont"><strong>Don't</strong>Turn four steps into a feature inventory or put the CTA below y 1580.</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="format" id="f6" aria-labelledby="f6-title">
+        <div class="format-title">
+          <span class="format-number">F6</span>
+          <div><h3 id="f6-title">Proof plaque / case study</h3><p>Let the evidence be the ornament.</p></div>
+          <span class="tag">1:1 · Trust</span>
+        </div>
+        <div class="format-grid">
+          <figure class="media-well">
+            <div class="ad-wrap ratio-square">
+              <div class="ad proof-ad">
+                <div class="certificate case-plaque">
+                  <div class="gold-strip" aria-hidden="true"></div>
+                  <span class="kamon k-kikko" aria-hidden="true"></span>
+                  <p class="ad-eyebrow">Case study</p>
+                  <h4><span class="ph">[Customer name]</span><br>cut bid turnaround<br>from <span class="ph">[X]</span> days<br><span class="ad-twist">to <span class="ph">[Y]</span>.</span></h4>
+                  <p class="case-source"><span class="ph">[Source · period · scope]</span></p>
+                </div>
+                <span class="brand ad-brand"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#kohai-torii"/></svg><span>Kōhai</span></span>
+                <span class="pin" style="left:83px;top:143px">1</span><span class="pin" style="left:83px;top:390px">2</span><span class="pin" style="left:83px;top:752px">3</span>
+              </div>
+            </div>
+            <figcaption class="media-caption"><span>Template only · All customer evidence is unfilled</span><span>1080 × 1080</span></figcaption>
+          </figure>
+          <div class="spec">
+            <div class="spec-block"><h4>Source pattern</h4><p><span class="source-name">Relevance AI.</span> Borrow enterprise proof hierarchy: named customer, one before/after outcome, and an attributable case study.</p><p class="when"><strong>When to use</strong><span>Retargeting, enterprise consideration, and GC-owner trust building—only after evidence approval.</span></p></div>
+            <div class="spec-block"><h4>Anatomy</h4><ol class="anatomy"><li>Kikkō results crest, small “Case study” eyebrow, gold ichimonji strip.</li><li>One comparative metric, large enough to carry the whole square.</li><li>Source / period / scope line inside a double-line, concave-notched certificate frame.</li></ol></div>
+            <div class="spec-block"><h4>Copy slots · Maximum characters</h4><dl class="slots"><dt>Customer name</dt><dd>24</dd><dt>Full result statement</dt><dd>90</dd><dt>Each metric value</dt><dd>8</dd><dt>Source / period / scope</dt><dd>48</dd></dl></div>
+            <div class="spec-block"><h4>Kōhai adaptation</h4><p>No fabricated testimonial, customer count, or result. The source-faithful result sentence can exceed eight words; a shorter approved headline may name the outcome while the plaque carries the substantiated detail. Keep methodology on the linked case study.</p></div>
+            <div class="do-dont"><p><strong>Do</strong>Get permission, source data, time period, and context for the comparison.</p><p class="dont"><strong>Don't</strong>Turn one customer's result into a universal guarantee.</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="format" id="f7" aria-labelledby="f7-title">
+        <div class="format-title">
+          <span class="format-number">F7</span>
+          <div><h3 id="f7-title">Creator / UGC frame</h3><p>A real person. A real workflow. A clear disclosure.</p></div>
+          <span class="tag">9:16 · Social acquisition</span>
+        </div>
+        <div class="format-grid">
+          <figure class="media-well media-well--story">
+            <div class="ad-wrap ratio-story">
+              <div class="ad photo-ad ugc-ad">
+                <div class="photo-grid" aria-hidden="true"></div>
+                <div class="partner"><span class="ph">[Creator]</span> with Kōhai<small>Paid partnership with Kōhai</small></div>
+                <div class="photo-label"><span class="ph">Creator footage</span><small>Replace with cleared video<br>Kon shadows · Silk highlights</small></div>
+                <div class="burned-caption"><span>Here's the part<br>I hand off.</span></div>
+                <div class="comment-card">
+                  <div class="stage-band kohai-seigaiha-border" aria-hidden="true"></div>
+                  <p>Comment “crew” and I'll<br>send you the link.</p>
+                </div>
+                <span class="brand ad-brand"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#kohai-torii"/></svg><span>Kōhai</span></span>
+                <div class="stage-band kohai-seigaiha-border" aria-hidden="true"></div>
+                <span class="pin" style="left:23px;top:275px">1</span><span class="pin" style="left:23px;top:650px">2</span><span class="pin" style="left:35px;top:1060px">3</span><span class="pin" style="left:23px;top:1325px">4</span>
+              </div>
+            </div>
+            <figcaption class="media-caption"><span>Composite reference · End-card CTA replaces the caption in time</span><span>1080 × 1920</span></figcaption>
+          </figure>
+          <div class="spec">
+            <div class="spec-block"><h4>Source pattern</h4><p><span class="source-name">Grok creator partnerships.</span> Borrow creator-led demonstration, native-feeling captions, and an explicit partnership identity.</p><p class="when"><strong>When to use</strong><span>Cold social discovery or creator-authorized partnership ads with audience fit.</span></p></div>
+            <div class="spec-block"><h4>Anatomy</h4><ol class="anatomy"><li><span class="ph">[Creator]</span> with Kōhai + a Meta-style “Paid partnership” byline.</li><li>Cleared footage, indigo grade, and a stage-gradient type scrim.</li><li>Burned-in sans 700 captions, shironeri on 70% kon, maximum two lines.</li><li>Comment-gate end card; a seigaiha band marks the light/dark cut.</li></ol></div>
+            <div class="spec-block"><h4>Copy slots · Maximum characters</h4><dl class="slots"><dt>Creator name</dt><dd>24</dd><dt>Caption / each line</dt><dd>28</dd><dt>Comment-gate CTA</dt><dd>60</dd><dt>Keyword</dt><dd>12</dd></dl></div>
+            <div class="spec-block"><h4>Kōhai adaptation</h4><p>“Comment ‘crew’…” is a <strong>CTA mechanic to test</strong>, not the default. Check current platform rules, avoid spammy engagement bait, and fulfill every promised reply. The visual byline does not replace Meta's native paid-partnership tools, applicable disclosures, or TikTok's content disclosure setting.</p></div>
+            <div class="do-dont"><p><strong>Do</strong>Secure usage rights, creator authorization, disclosures, and a working response flow.</p><p class="dont"><strong>Don't</strong>Script an untrue personal result or hide the partnership label.</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="format" id="f8" aria-labelledby="f8-title">
+        <div class="format-title">
+          <span class="format-number">F8</span>
+          <div><h3 id="f8-title">Documentary story still</h3><p>Give the work, and the person doing it, room.</p></div>
+          <span class="tag">4:5 · Brand only</span>
+        </div>
+        <div class="format-grid">
+          <figure class="media-well">
+            <div class="ad-wrap ratio-feed">
+              <div class="ad photo-ad doc-ad">
+                <div class="photo-grid" aria-hidden="true"></div>
+                <div class="photo-label"><span class="ph">Documentary footage</span><small>Real work · Real permission<br>No fabricated customer scene</small></div>
+                <div class="doc-caption"><p class="ad-eyebrow">The work behind the work</p><h4>Build the thing<br>you came to build.</h4></div>
+                <div class="doc-cut"><div class="stage-band kohai-seigaiha-border" aria-hidden="true"></div></div>
+                <span class="brand ad-brand"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#kohai-torii"/></svg><span>Kōhai</span></span>
+                <span class="pin" style="left:25px;top:410px">1</span><span class="pin" style="left:25px;bottom:350px">2</span><span class="pin" style="left:25px;bottom:69px">3</span>
+              </div>
+            </div>
+            <figcaption class="media-caption"><span>No button · No offer · No testimonial invented</span><span>1080 × 1350</span></figcaption>
+          </figure>
+          <div class="spec">
+            <div class="spec-block"><h4>Source pattern</h4><p><span class="source-name">OpenAI brand stories.</span> Borrow documentary restraint: real context, a small editorial thought, and a quiet signature.</p><p class="when"><strong>When to use</strong><span>Brand / awareness only. Not a substitute for a conversion ad.</span></p></div>
+            <div class="spec-block"><h4>Anatomy</h4><ol class="anatomy"><li>One cleared documentary frame; the environment carries the story.</li><li>Minimal lower-third serif caption, supported by a gradient scrim.</li><li>Seigaiha cut into a silk signature strip. Lockup only; no CTA button.</li></ol></div>
+            <div class="spec-block"><h4>Copy slots · Maximum characters</h4><dl class="slots"><dt>Optional eyebrow</dt><dd>28</dd><dt>Caption / ≤ 8 words</dt><dd>48</dd><dt>CTA</dt><dd>None</dd></dl></div>
+            <div class="spec-block"><h4>Kōhai adaptation</h4><p>Construction: a superintendent reviewing the work, with approved site access and safety practice. SMB: an owner at the craft they opened the business to do. Preserve believable skin tones inside the indigo grade. Never imply that stock footage is a Kōhai customer.</p></div>
+            <div class="do-dont"><p><strong>Do</strong>Let the frame breathe and retain documentary integrity.</p><p class="dont"><strong>Don't</strong>Add offer badges, invented backstories, or UI confetti.</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="format format-wide" id="f9" aria-labelledby="f9-title">
+        <div class="format-title">
+          <span class="format-number">F9</span>
+          <div><h3 id="f9-title">Roster carousel</h3><p>Introduce the crew, one useful role at a time.</p></div>
+          <span class="tag">1:1 × 4 · Consideration</span>
+        </div>
+        <div class="media-well">
+          <div class="rail" tabindex="0" aria-label="Four-card roster carousel, scroll horizontally">
+            <figure>
+              <div class="ad-wrap ratio-square">
+                <div class="ad roster-ad">
+                  <div class="frame"></div>
+                  <div class="roster-index"><span>Your AI employees</span><span>01 / 04</span></div>
+                  <span class="kamon k-sakura roster-crest" aria-hidden="true"></span>
+                  <div class="roster-copy"><h4>Meet<br><span class="ad-twist">your crew.</span></h4><p>A name for each handoff.<br>A role for the work.</p></div>
+                  <div class="roster-bottom"></div>
+                  <span class="brand ad-brand"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#kohai-torii"/></svg><span>Kōhai</span></span><span class="swipe" aria-label="Swipe">→</span>
+                  <span class="pin" style="left:22px;top:448px">1</span>
+                </div>
+              </div>
+              <figcaption class="rail-caption"><strong>01 / The invitation</strong><span>Sakura · People</span></figcaption>
+            </figure>
+            <figure>
+              <div class="ad-wrap ratio-square">
+                <div class="ad roster-ad">
+                  <div class="frame"></div>
+                  <div class="roster-index"><span>Your AI employees</span><span>02 / 04</span></div>
+                  <span class="kamon k-ogi roster-crest" aria-hidden="true"></span>
+                  <div class="roster-copy"><h4>Alfred.</h4><p class="role">Meetings</p><p>Turn the conversation<br>into a handoff.</p></div>
+                  <div class="roster-bottom"></div>
+                  <span class="brand ad-brand"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#kohai-torii"/></svg><span>Kōhai</span></span><span class="swipe" aria-label="Swipe">→</span>
+                  <span class="pin" style="left:22px;top:448px">2</span>
+                </div>
+              </div>
+              <figcaption class="rail-caption"><strong>02 / Alfred</strong><span>Ōgi · Meetings</span></figcaption>
+            </figure>
+            <figure>
+              <div class="ad-wrap ratio-square">
+                <div class="ad roster-ad">
+                  <div class="frame"></div>
+                  <div class="roster-index"><span>Your AI employees</span><span>03 / 04</span></div>
+                  <span class="kamon k-kikyo roster-crest" aria-hidden="true"></span>
+                  <div class="roster-copy"><h4><span class="ph">Hana</span>.</h4><p class="role">Estimating</p><p>Give the bid<br>a clear starting point.</p></div>
+                  <div class="roster-bottom"></div>
+                  <span class="brand ad-brand"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#kohai-torii"/></svg><span>Kōhai</span></span><span class="swipe" aria-label="Swipe">→</span>
+                  <span class="pin" style="left:22px;top:448px">3</span>
+                </div>
+              </div>
+              <figcaption class="rail-caption"><strong>03 / <span class="ph">Hana</span></strong><span>Kikyō · Precision</span></figcaption>
+            </figure>
+            <figure>
+              <div class="ad-wrap ratio-square">
+                <div class="ad roster-ad">
+                  <div class="frame"></div>
+                  <div class="roster-index"><span>Your AI employees</span><span>04 / 04</span></div>
+                  <span class="kamon k-seigaiha roster-crest" aria-hidden="true"></span>
+                  <div class="roster-copy"><h4><span class="ph">Matsuo</span>.</h4><p class="role">Scheduling</p><p>Put the next steps<br>in order.</p></div>
+                  <div class="roster-bottom"></div>
+                  <span class="brand ad-brand"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#kohai-torii"/></svg><span>Kōhai</span></span><span class="swipe" aria-label="Continue">→</span>
+                  <span class="pin" style="left:22px;top:448px">4</span>
+                </div>
+              </div>
+              <figcaption class="rail-caption"><strong>04 / <span class="ph">Matsuo</span></strong><span>Seigaiha · Flow</span></figcaption>
+            </figure>
+          </div>
+          <div class="media-caption"><span>Consistent frame, baseline, role label, and signature · Scroll on smaller screens</span><span>4 × 1080 × 1080</span></div>
+        </div>
+        <div class="spec">
+          <div class="spec-col">
+            <div class="spec-block"><h4>Source pattern</h4><p><span class="source-name">Marblism carousel.</span> Borrow the collection reveal: a crew-level hook followed by named employees with distinct responsibilities.</p><p class="when"><strong>When to use</strong><span>Consideration and retargeting; explain breadth without a feature wall.</span></p></div>
+            <div class="do-dont"><p><strong>Do</strong>Let every card work alone and in sequence.</p><p class="dont"><strong>Don't</strong>Suggest the roster or roles are live until confirmed.</p></div>
+          </div>
+          <div class="spec-col">
+            <div class="spec-block"><h4>Anatomy</h4><ol class="anatomy"><li>Hook card: “Meet your crew.” Sakura means people.</li><li>Alfred · Meetings · Ōgi. Conversation becomes a handoff.</li><li><span class="ph">Hana</span> · Estimating · Kikyō. A craft-and-precision role.</li><li><span class="ph">Matsuo</span> · Scheduling · Seigaiha. Flow and sequence.</li></ol></div>
+            <p class="spec-footnote">The four card numbers are sequence labels, not workforce counts. Disable automatic card reordering when the narrative depends on this order.</p>
+          </div>
+          <div class="spec-col">
+            <div class="spec-block"><h4>Copy slots · Maximum characters</h4><dl class="slots"><dt>Hook / ≤ 8 words</dt><dd>36</dd><dt>Name / role</dt><dd>12 / 20</dd><dt>Role outcome, per card</dt><dd>56</dd><dt>Recurring header</dt><dd>22</dd></dl></div>
+            <div><h4>Kōhai adaptation</h4><p>No stock avatars. Crests give each role a meaningful identity. Keep every card on silk with a 54px lockup and a thin swipe arrow. Confirm names and supported tasks before replacing the dotted stand-ins.</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="format format-wide" id="f10" aria-labelledby="f10-title">
+        <div class="format-title">
+          <span class="format-number">F10</span>
+          <div><h3 id="f10-title">DCO modular template</h3><p>One message. Three compositions. No automatic shrinking.</p></div>
+          <span class="tag">All ratios · Structured testing</span>
+        </div>
+        <div class="media-well">
+          <div class="dco-grid" tabindex="0" aria-label="The same modular creative in three aspect ratios">
+            <figure>
+              <div class="ad-wrap ratio-feed">
+                <div class="ad ad-stage dco-ad">
+                  <div class="module mod-h"><span class="slot-key">H · 1</span><h4>Keep the job moving.<br><span class="ad-twist">Hand off the admin.</span></h4></div>
+                  <div class="module mod-s"><span class="slot-key">S · 2</span><p>Turn daily notes into a draft for review.</p></div>
+                  <div class="module mod-v"><span class="slot-key">V · 3</span><span class="kamon k-seigaiha poster" aria-hidden="true"></span><div class="notification"><strong>Daily log draft ready</strong><span class="status-line">Review before sending</span></div></div>
+                  <div class="module mod-c"><span class="slot-key">C · 4</span><span class="ad-button">Meet your crew <span aria-hidden="true">→</span></span></div>
+                  <div class="module mod-l"><span class="slot-key">L · 5</span><span class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#kohai-torii"/></svg><span>Kōhai</span></span></div>
+                  <div class="stage-band kohai-seigaiha-border" aria-hidden="true"></div>
+                </div>
+              </div>
+              <figcaption><strong>4:5 / Stack</strong><span>1080 × 1350</span></figcaption>
+            </figure>
+            <figure>
+              <div class="ad-wrap ratio-square">
+                <div class="ad ad-stage dco-ad dco-square">
+                  <div class="module mod-h"><span class="slot-key">H · 1</span><h4>Keep the job moving.<br><span class="ad-twist">Hand off the admin.</span></h4></div>
+                  <div class="module mod-s"><span class="slot-key">S · 2</span><p>Turn daily notes into a draft for review.</p></div>
+                  <div class="module mod-v"><span class="slot-key">V · 3</span><span class="kamon k-seigaiha poster" aria-hidden="true"></span><div class="notification"><strong>Daily log draft ready</strong><span class="status-line">Review before sending</span></div></div>
+                  <div class="module mod-c"><span class="slot-key">C · 4</span><span class="ad-button">Meet your crew <span aria-hidden="true">→</span></span></div>
+                  <div class="module mod-l"><span class="slot-key">L · 5</span><span class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#kohai-torii"/></svg><span>Kōhai</span></span></div>
+                  <div class="stage-band kohai-seigaiha-border" aria-hidden="true"></div>
+                </div>
+              </div>
+              <figcaption><strong>1:1 / Shared footer</strong><span>1080 × 1080</span></figcaption>
+            </figure>
+            <figure>
+              <div class="ad-wrap ratio-story">
+                <div class="ad ad-stage dco-ad dco-story">
+                  <div class="module mod-h"><span class="slot-key">H · 1</span><h4>Keep the job moving.<br><span class="ad-twist">Hand off the admin.</span></h4></div>
+                  <div class="module mod-s"><span class="slot-key">S · 2</span><p>Turn daily notes into a draft for review.</p></div>
+                  <div class="module mod-v"><span class="slot-key">V · 3</span><span class="kamon k-seigaiha poster" aria-hidden="true"></span><div class="notification"><strong>Daily log draft ready</strong><span class="status-line">Review before sending</span></div></div>
+                  <div class="module mod-c"><span class="slot-key">C · 4</span><span class="ad-button">Meet your crew <span aria-hidden="true">→</span></span></div>
+                  <div class="module mod-l"><span class="slot-key">L · 5</span><span class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#kohai-torii"/></svg><span>Kōhai</span></span></div>
+                  <div class="stage-band kohai-seigaiha-border" aria-hidden="true"></div>
+                </div>
+              </div>
+              <figcaption><strong>9:16 / Safe stack</strong><span>1080 × 1920</span></figcaption>
+            </figure>
+          </div>
+          <div class="media-caption"><span>Dashed modules + letter / number keys are reference layers. Remove before export.</span><span>H → S → V → C → L</span></div>
+        </div>
+        <div class="spec">
+          <div class="spec-col">
+            <div class="spec-block"><h4>Source pattern</h4><p><span class="source-name">OpenAI / Grok DCO.</span> Borrow modular creative assembly: interchangeable hooks, support, visuals, and CTAs with placement-specific art direction.</p><p class="when"><strong>When to use</strong><span>Structured testing after the message and product lane are established.</span></p></div>
+            <div class="do-dont"><p><strong>Do</strong>Change one module per hypothesis, then track the combination.</p><p class="dont"><strong>Don't</strong>Auto-crop a feed ad or mix incompatible offers and destinations.</p></div>
+          </div>
+          <div class="spec-col">
+            <div class="spec-block"><h4>Anatomy</h4><ol class="anatomy"><li><strong>H:</strong> headline, two-tone paired imperative.</li><li><strong>S:</strong> one support line, unchanged across ratios.</li><li><strong>V:</strong> same workflow prop and Seigaiha focal crest.</li><li><strong>C:</strong> CTA; stacked in feed / vertical, beside logo in square.</li><li><strong>L:</strong> 54px lockup; never proportionally shrunk to fit.</li></ol></div>
+          </div>
+          <div class="spec-col">
+            <div class="spec-block"><h4>Copy slots · Maximum characters</h4><dl class="slots"><dt>H / ≤ 8 words</dt><dd>48</dd><dt>S</dt><dd>54</dd><dt>V notification / status</dt><dd>32 / 28</dd><dt>C</dt><dd>20</dd><dt>L</dt><dd>Fixed asset</dd></dl></div>
+            <div><h4>Kōhai adaptation</h4><p>All three artboards show identical copy and prop content. Reflow spacing and visual height, not meaning. Lock the role, motif, offer, and destination as a compatibility set. Reject overflow instead of silently reducing font sizes.</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="format format-wide" id="f11" aria-labelledby="f11-title">
+        <div class="format-title">
+          <span class="format-number">F11</span>
+          <div><h3 id="f11-title">Video storyboard frame</h3><p>Four beats. A calm handoff from problem to action.</p></div>
+          <span class="tag">9:16 · Explainer / Reel</span>
+        </div>
+        <div class="media-well">
+          <div class="rail" tabindex="0" aria-label="Four-panel vertical storyboard, scroll horizontally">
+            <figure>
+              <div class="ad-wrap ratio-story">
+                <div class="ad ad-stage storyboard">
+                  <span class="kamon k-seigaiha poster" aria-hidden="true"></span>
+                  <p class="ad-eyebrow story-kicker">For superintendents</p>
+                  <div class="story-copy"><h4>The day ends.<br><span class="ad-twist">The log<br>doesn't.</span></h4></div>
+                  <span class="brand ad-brand"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#kohai-torii"/></svg><span>Kōhai</span></span>
+                  <div class="stage-band kohai-seigaiha-border" aria-hidden="true"></div>
+                  <span class="pin" style="left:23px;top:540px">1</span>
+                </div>
+              </div>
+              <figcaption class="rail-caption"><strong>Hook</strong><span>0–2s</span></figcaption>
+            </figure>
+            <figure>
+              <div class="ad-wrap ratio-story">
+                <div class="ad ad-stage storyboard">
+                  <span class="kamon k-seigaiha poster" aria-hidden="true"></span>
+                  <p class="ad-eyebrow story-kicker">The problem</p>
+                  <div class="story-copy"><h4>Notes here.<br>Updates there.</h4><p class="ad-body">One more thing to pull together.</p></div>
+                  <div class="problem-lines"><div>Site notes</div><div>RFI updates</div><div>Tomorrow's handoff</div></div>
+                  <span class="brand ad-brand"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#kohai-torii"/></svg><span>Kōhai</span></span>
+                  <div class="stage-band kohai-seigaiha-border" aria-hidden="true"></div>
+                  <span class="pin" style="left:23px;top:540px">2</span>
+                </div>
+              </div>
+              <figcaption class="rail-caption"><strong>Problem</strong><span>2–6s</span></figcaption>
+            </figure>
+            <figure>
+              <div class="ad-wrap ratio-story">
+                <div class="ad ad-stage storyboard">
+                  <span class="kamon k-seigaiha poster" aria-hidden="true"></span>
+                  <p class="ad-eyebrow story-kicker">Kōhai does it</p>
+                  <div class="story-copy"><h4>Hand off<br>the draft.<br><span class="ad-twist">Keep the<br>final say.</span></h4></div>
+                  <div class="notification"><strong>Daily log draft ready</strong><span class="status-line">Site notes organized</span></div>
+                  <div class="notification"><strong>Ready for your review</strong><span class="status-line">You approve the handoff</span></div>
+                  <span class="brand ad-brand"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#kohai-torii"/></svg><span>Kōhai</span></span>
+                  <div class="stage-band kohai-seigaiha-border" aria-hidden="true"></div>
+                  <span class="pin" style="left:23px;top:960px">3</span>
+                </div>
+              </div>
+              <figcaption class="rail-caption"><strong>Kōhai does it</strong><span>6–12s</span></figcaption>
+            </figure>
+            <figure>
+              <div class="ad-wrap ratio-story">
+                <div class="ad ad-stage storyboard">
+                  <span class="kamon k-seigaiha poster" aria-hidden="true"></span>
+                  <p class="ad-eyebrow story-kicker">Your next handoff</p>
+                  <div class="large-lockup"><span class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#kohai-torii"/></svg><span>Kōhai</span></span></div>
+                  <div class="end-head"><h4>Hire AI<br>employees.<br><span class="ad-twist">Get finished<br>work.</span></h4></div>
+                  <span class="ad-button">Meet your crew <span aria-hidden="true">→</span></span>
+                  <div class="stage-band kohai-seigaiha-border" aria-hidden="true"></div>
+                  <span class="pin" style="left:23px;top:1315px">4</span>
+                </div>
+              </div>
+              <figcaption class="rail-caption"><strong>End card</strong><span>12–15s</span></figcaption>
+            </figure>
+          </div>
+          <div class="media-caption"><span>Motion is weather, not fireworks. The storyboard is intentionally still.</span><span>15s example · 4 × 1080 × 1920</span></div>
+        </div>
+        <div class="spec">
+          <div class="spec-col">
+            <div class="spec-block"><h4>Source pattern</h4><p><span class="source-name">Talking-head / explainer Reels.</span> Borrow the familiar hook → problem → demonstration → end-card sequence. This is a format convention, not an attributed performance claim.</p><p class="when"><strong>When to use</strong><span>Prospecting or retargeting when a workflow is clearer in time than in a still.</span></p></div>
+            <div class="do-dont"><p><strong>Do</strong>Design for sound-off viewing and keep the final action on screen for three seconds.</p><p class="dont"><strong>Don't</strong>Use bouncing UI, strobing, spinning seals, or fake live results.</p></div>
+          </div>
+          <div class="spec-col">
+            <div class="spec-block"><h4>Anatomy / timing</h4><ol class="anatomy"><li><strong>0–2s / Hook.</strong> Big serif line; readable on the first frame.</li><li><strong>2–6s / Problem.</strong> One caption and a restrained list of scattered inputs.</li><li><strong>6–12s / Kōhai does it.</strong> Two task props arrive slowly; draft and review remain explicit.</li><li><strong>12–15s / End card.</strong> Larger lockup, paired imperative, one CTA.</li></ol></div>
+            <p class="spec-footnote">Talking-head variant: replace the problem stage with cleared creator footage using F7's grade, disclosure, and caption rules.</p>
+          </div>
+          <div class="spec-col">
+            <div class="spec-block"><h4>Copy slots · Maximum characters</h4><dl class="slots"><dt>Hook / problem headline</dt><dd>38 / 40</dd><dt>Caption / maximum 2 lines</dt><dd>56</dd><dt>Notification, each</dt><dd>32</dd><dt>End headline / CTA</dt><dd>48 / 20</dd></dl></div>
+            <div><h4>Kōhai adaptation / motion</h4><p>Use 300–500ms dissolves. Props move 24–40px over 800–1200ms with gentle ease-out, never overshoot. Ambient loops run 8–12s and return seamlessly. Reduced-motion versions use static frames / cuts; this page disables decorative motion when requested.</p></div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <div class="wave-rule section-wave kohai-seigaiha-border" aria-hidden="true"></div>
+
+    <section class="section wrap" id="copy-bank" aria-labelledby="copy-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">03 / Copy bank</p>
+          <h2 id="copy-title">Short words.<br>A useful turn.</h2>
+        </div>
+        <p>Eight headline pairs per lane. The arrow indicates the anchor-to-twist transition; it does not need to appear in the exported ad.</p>
+      </div>
+      <div class="copy-intro">
+        <p><strong>Use:</strong> anchor in kon / shironeri, twist in ai-indigo / sky. Keep sentence case. These are copy directions, not performance or feature guarantees.</p>
+        <p>No invented numbers. No breathless promises. No “we're excited.”</p>
+      </div>
+      <div class="copy-columns">
+        <div class="copy-lane">
+          <div class="copy-lane-heading"><h3>Construction</h3><span>Estimators · PMs · Supers · GC owners</span></div>
+          <ol class="copy-list">
+            <li><div class="copy-pair">Walk the site.<span class="arrow">→</span><span class="twist">Hand off the admin.</span><span class="copy-use">Scene / superintendent · F2, F8</span></div></li>
+            <li><div class="copy-pair">Read the plans.<span class="arrow">→</span><span class="twist">Prepare the questions.</span><span class="copy-use">Bid preparation / estimator · F1, F5</span></div></li>
+            <li><div class="copy-pair">Price the change.<span class="arrow">→</span><span class="twist">Hand off the paperwork.</span><span class="copy-use">Change orders / GC owner · F1, F10</span></div></li>
+            <li><div class="copy-pair">Open the RFI.<span class="arrow">→</span><span class="twist">Clarify the next step.</span><span class="copy-use">RFI triage / PM · F4, F5</span></div></li>
+            <li><div class="copy-pair">Gather the submittals.<span class="arrow">→</span><span class="twist">Prepare the review.</span><span class="copy-use">Submittals / PM · F5, F10</span></div></li>
+            <li><div class="copy-pair">Finish the walk.<span class="arrow">→</span><span class="twist">Draft the daily log.</span><span class="copy-use">Daily logs / superintendent · F2, F11</span></div></li>
+            <li><div class="copy-pair">Check the takeoff.<span class="arrow">→</span><span class="twist">Keep the final say.</span><span class="copy-use">Human review / estimator · F2, F9</span></div></li>
+            <li><div class="copy-pair">Build the bid.<span class="arrow">→</span><span class="twist">Prepare the handoff.</span><span class="copy-use">Bid handoff / estimator · F1, F10</span></div></li>
+          </ol>
+        </div>
+        <div class="copy-lane">
+          <div class="copy-lane-heading"><h3>SMB</h3><span>Owners · Operators · Small teams</span></div>
+          <ol class="copy-list">
+            <li><div class="copy-pair">Run the business.<span class="arrow">→</span><span class="twist">Hand off the busywork.</span><span class="copy-use">General acquisition · F1, F3</span></div></li>
+            <li><div class="copy-pair">Take the meeting.<span class="arrow">→</span><span class="twist">Keep the next steps.</span><span class="copy-use">Alfred / meetings · F2, F9</span></div></li>
+            <li><div class="copy-pair">Open your brief.<span class="arrow">→</span><span class="twist">Know what matters.</span><span class="copy-use">Priority brief · F4, F10</span></div></li>
+            <li><div class="copy-pair">Make the decision.<span class="arrow">→</span><span class="twist">Delegate the draft.</span><span class="copy-use">Human approval · F1, F11</span></div></li>
+            <li><div class="copy-pair">Meet the customer.<span class="arrow">→</span><span class="twist">Prepare the follow-up.</span><span class="copy-use">Customer handoff · F2, F5</span></div></li>
+            <li><div class="copy-pair">Keep your voice.<span class="arrow">→</span><span class="twist">Get a first draft.</span><span class="copy-use">Writing support / <span class="ph">Kiku</span> stand-in · F5, F9</span></div></li>
+            <li><div class="copy-pair">Set the direction.<span class="arrow">→</span><span class="twist">Give the work names.</span><span class="copy-use">Named AI employees · F3, F9</span></div></li>
+            <li><div class="copy-pair">Do your craft.<span class="arrow">→</span><span class="twist">Delegate the admin.</span><span class="copy-use">Owner story · F7, F8</span></div></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <div class="wave-rule section-wave kohai-seigaiha-border" aria-hidden="true"></div>
+
+    <section class="section wrap" id="production" aria-labelledby="production-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">04 / Production checklist</p>
+          <h2 id="production-title">Ready is a review.<br>Not a feeling.</h2>
+        </div>
+        <p>Run this pre-flight for every ratio and every variant. Checkboxes are a local working aid, not an approval record.</p>
+      </div>
+      <div class="production-layout">
+        <form class="checklist" aria-label="Ad production pre-flight checklist">
+          <label class="check-row"><input type="checkbox"><span><strong>One message, one next step.</strong> Static headline is ≤ 8 words, or a documented long-copy test. Meta's old &lt;20% image-text guideline is retired; clarity still matters.</span></label>
+          <label class="check-row"><input type="checkbox"><span><strong>Correct canvas and safe zones.</strong> 1080 × 1350, 1080 × 1080, or 1080 × 1920. Keep 60px margins; on vertical reserve 250px top / 340px bottom. Preview actual Meta and TikTok UI.</span></label>
+          <label class="check-row"><input type="checkbox"><span><strong>Readable at scroll size.</strong> Check the export on a phone. Serif headlines, sans UI. Essential text never below 30px; auxiliary labels never below 24px at 1080 width.</span></label>
+          <label class="check-row"><input type="checkbox"><span><strong>Only two background families.</strong> Silk / washi and indigo stage. Anchor / twist uses the approved ink pair. Seigaiha marks every light ↔ dark cut.</span></label>
+          <label class="check-row"><input type="checkbox"><span><strong>One focal kamon per ad or carousel card.</strong> Its meaning matches the subject. Small repeated flow bullets are trim, not extra poster marks. Ambient 3–6%; grounds 8–11%; focal crest 7–11%.</span></label>
+          <label class="check-row"><input type="checkbox"><span><strong>Color roles are intact.</strong> Indigo handles CTAs and seals. Sakura is blossoms only, never a CTA. Aka appears only in the torii. Kin is an ichimonji strip, not headline ink.</span></label>
+          <label class="check-row"><input type="checkbox"><span><strong>Signature, not sponsorship wallpaper.</strong> Lockup is 44–56px high in a safe corner; wordmark is serif 500. No logo distortion. Every ad preview pin, slot key, and dashed guide is removed.</span></label>
+          <label class="check-row"><input type="checkbox"><span><strong>Placeholder and claim audit passed.</strong> Search for brackets, <span class="ph">$X</span>, <span class="ph">[Metric]</span>, dotted underlines, and stand-in names. Replace with approved facts or remove the claim. No invented testimonials, prices, or customer counts.</span></label>
+          <label class="check-row"><input type="checkbox"><span><strong>Product and destination match.</strong> Validate capabilities, integrations, workforce count, offer terms, and human approval steps. Use “Start free” only for an approved free destination. CTA and landing page tell the same story.</span></label>
+          <label class="check-row"><input type="checkbox"><span><strong>Media and partnerships are cleared.</strong> Rights, consent, releases, site permissions, and native paid-partnership disclosures are in place. Photo grade is indigo, with a legible scrim and no false customer implication.</span></label>
+          <label class="check-row"><input type="checkbox"><span><strong>Motion stays quiet.</strong> Sound-off captions, maximum two lines. No emoji, flashes, bouncing props, or decorative spin. Supply a reduced-motion/static alternative where applicable.</span></label>
+          <label class="check-row"><input type="checkbox"><span><strong>Export and delivery checked.</strong> sRGB JPG / PNG for stills; H.264 MP4 with suitable audio for video. Inspect native-resolution files, current placement requirements, URLs, tracking, crops, and legibility before upload.</span></label>
+        </form>
+        <aside class="handoff" aria-labelledby="handoff-title">
+          <p class="eyebrow">For designers + generators</p>
+          <h3 id="handoff-title">The handoff contract.</h3>
+          <p>Build an ad, not a screenshot of this reference page. Use the actual brand assets and native export dimensions.</p>
+          <dl>
+            <dt>1. Choose</dt><dd>Lane → funnel stage → format → ratio.</dd>
+            <dt>2. Populate</dt><dd>Approved hook → support → prop → CTA → destination.</dd>
+            <dt>3. Constrain</dt><dd>Slot limits, safe area, two surfaces, one meaningful focal crest.</dd>
+            <dt>4. Verify</dt><dd>Claims, names, numbers, footage rights, and offer terms.</dd>
+            <dt>5. Export</dt><dd>Remove reference layers. Keep the final review visible in the delivery record.</dd>
+          </dl>
+          <span class="file-label">kohai_construction_f05_9x16_hook-a_v01.mp4</span>
+          <p><strong>Package:</strong> source file, clean export, copy record, evidence / rights record, destination URL, and reviewer approval.</p>
+          <p><strong>Never auto-fill unknowns.</strong> If a price, result, customer, or capability is missing, leave the marked placeholder in a draft and block launch.</p>
+        </aside>
+      </div>
+      <div class="approval-note">
+        <div><h3>Hire AI employees. Keep the final say.</h3><p>The same principle applies to this system: generate deliberately, review carefully, launch with approval.</p></div>
+        <span class="seal" aria-label="Approval principle: approved by you">Approved<br>by you</span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="source-notes">
+    <div class="stage-band stage-band--top kohai-seigaiha-border" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="footer-top">
+        <span class="brand brand--light"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#kohai-torii"/></svg><span>Kōhai</span></span>
+        <p>Built from Kōhai brand pack v2 · Ad formats derived from Meta Ad Library competitive analysis (Lindy, Sintra, Marblism, Relevance AI, Grok, OpenAI, Town, Perplexity) · Drafts — launch requires approval.</p>
+      </div>
+      <div class="footer-bottom">
+        <span>Pattern references describe creative mechanisms, not verified competitor results.</span>
+        <span>v1 · Oct 2026 · Calm, editorial, declarative.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const frames = document.querySelectorAll(".ad-wrap");
+      const sizeFrame = (frame, width) => {
+        frame.style.setProperty("--s", width / 1080);
+      };
+      const fitAll = () => frames.forEach(frame => sizeFrame(frame, frame.clientWidth));
+      fitAll();
+      if ("ResizeObserver" in window) {
+        const observer = new ResizeObserver(entries => {
+          entries.forEach(entry => sizeFrame(entry.target, entry.contentRect.width));
+        });
+        frames.forEach(frame => observer.observe(frame));
+      } else {
+        window.addEventListener("resize", fitAll, { passive: true });
+      }
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll);
+      window.addEventListener("beforeprint", fitAll);
+      window.addEventListener("afterprint", fitAll);
+    })();
+  </script>
+</body>
+</html>
